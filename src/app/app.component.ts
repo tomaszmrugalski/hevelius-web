@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'JH: iteleskop2';
+  version = '0.0.1';
 }
