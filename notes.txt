@@ -1,0 +1,34 @@
+# Database setup:
+
+mysql -u m3620_m3620 -p iteleskop (pass z......x)
+
+Useful commands:
+
+# Runs Angular live development server that listens on localhost:4200
+ng serve --open
+
+# Builds release version in dist/
+ng build
+
+# Runs unit-tests
+ng test
+
+# Runs end-to-end tests
+ng e2e
+
+commands:
+
+npm list - lists all installed modules in this project
+npm outdated - lists outdated modules
+npm update - upgrades to the latest available versions
+
+# Adding material to a project
+npm install --save @angular/material @angular/cdk @angular/animations
+
+# Architecture
+
+
+Angular is a collection of NgModules. Every Angular app has a root
+module, conventionally named AppModule, which provides the booststrap
+mechanism that launches the application. See
+src/appl/app.module.ts
