@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'JH: iteleskop2';
+  title = 'hevelius';
   version = '0.0.1';
 }
