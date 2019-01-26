@@ -30,6 +30,13 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to hevelius!');
+    expect(compiled.querySelector('h1').textContent).toContain('hevelius');
+  });
+
+  it('should render version in a h3 tag', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h3').textContent).toContain('0.0.1');
   });
 });
