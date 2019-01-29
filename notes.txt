@@ -32,3 +32,37 @@ Angular is a collection of NgModules. Every Angular app has a root
 module, conventionally named AppModule, which provides the booststrap
 mechanism that launches the application. See
 src/appl/app.module.ts
+
+
+To add a new component:
+
+$ ng generate component <component name>
+
+This will generate:
+CREATE src/app/hero-detail/hero-detail.component.css (0 bytes)
+CREATE src/app/hero-detail/hero-detail.component.html (30 bytes)
+CREATE src/app/hero-detail/hero-detail.component.spec.ts (657 bytes)
+CREATE src/app/hero-detail/hero-detail.component.ts (288 bytes)
+
+.css  component styles
+.html component template
+.ts   typescript file with a component class
+.spec.ts a test file for <component name>
+
+
+
+*.component.ts - component class
+
+import { Component, OnInit, Input } from '@angular/core';
+
+Component - this is a component
+OnInit - it has OnInit action
+Input - it will take an input
+
+To provide service, you need:
+
+$ ng generate service hero
+
+This will generate a service. Now you need to make sure the
+HeroService
+
