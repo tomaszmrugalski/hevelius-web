@@ -27,12 +27,10 @@ npm install --save @angular/material @angular/cdk @angular/animations
 
 # Architecture
 
-
 Angular is a collection of NgModules. Every Angular app has a root
 module, conventionally named AppModule, which provides the booststrap
 mechanism that launches the application. See
 src/appl/app.module.ts
-
 
 To add a new component:
 
@@ -49,8 +47,6 @@ CREATE src/app/hero-detail/hero-detail.component.ts (288 bytes)
 .ts   typescript file with a component class
 .spec.ts a test file for <component name>
 
-
-
 *.component.ts - component class
 
 import { Component, OnInit, Input } from '@angular/core';
@@ -66,3 +62,13 @@ $ ng generate service hero
 This will generate a service. Now you need to make sure the
 HeroService
 
+
+---------------
+
+To verify that our application runs correctly, we run:
+
+$ ng serve
+
+If ng serve fails to start, try deleting your node_modules directory
+and package-lock.json file and run npm install to recreate a clean
+node_modules directory and package-lock.json file.
