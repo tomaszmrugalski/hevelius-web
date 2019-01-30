@@ -4,27 +4,28 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<form class="login">
-  <table class="example-full-width" cellspacing="0">
+<form class="login-form" (ngSubmit)="onSubmit()">
+  <table class="full-width" cellspacing="0">
     <tr>
       <td>
-        <mat-form-field class="username">
-          <input matInput placeholder="Your username">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Your username" required>
         </mat-form-field>
       </td>
     </tr>
 
     <tr>
       <td>
-        <mat-form-field class="password">
-          <input matInput placeholder="Your password">
+        <mat-form-field class="full-width">
+          <input matInput [type]="hide ? 'password' : 'text'"  placeholder="Your password" required>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
       </td>
     </tr>
 
     <tr>
      <td>
-       <a mat-button routerLink="/login">Login</a>
+       <a mat-raised-button routerLink="/login" (click)="onSubmit()" color="primary">Login</a>
      </td>
     </tr>
   </table>
