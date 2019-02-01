@@ -10,15 +10,17 @@ import { Hevelius } from '../../hevelius';
 })
 export class LoginComponent implements OnInit {
 
+    title: string;
     version: string;
 
     hide: boolean;
 
-  constructor(private messageService: MessagesService) {
+  constructor(private messageService: MessagesService,
+             private cfg: Hevelius) {
 
         this.hide = true;
-      const v = new Hevelius;
-      this.version = v.version;
+        this.version = this.cfg.version;
+        this.title = this.cfg.title;
 
 /*      this.loginForm = new FormGroup({
           'user': new FormControl(null, Validators.required),
