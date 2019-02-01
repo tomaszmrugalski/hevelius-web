@@ -12,7 +12,11 @@ export class LoginComponent implements OnInit {
 
     version: string;
 
+    hide: boolean;
+
   constructor(private messageService: MessagesService) {
+
+        this.hide = true;
       const v = new Version;
       this.version = v.version;
 
