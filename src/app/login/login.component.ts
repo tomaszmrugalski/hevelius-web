@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { MessagesService } from '../services/messages.service';
+import { LoginService } from '../services/login.service';
 import { Hevelius } from '../../hevelius';
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
     hide: boolean;
 
   constructor(private messageService: MessagesService,
-             private cfg: Hevelius) {
+              private loginService: LoginService,
+              private cfg: Hevelius) {
 
         this.hide = true;
         this.version = this.cfg.version;
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
       this.messageService.add('submit clicked! onSubmit called');
+      this.loginService.login('thomson', 'password');
   }
 
 }
