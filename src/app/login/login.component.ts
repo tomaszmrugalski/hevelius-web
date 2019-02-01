@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { MessagesService } from '../services/messages.service';
-import { Version } from '../../version';
+import { Hevelius } from '../../hevelius';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private messageService: MessagesService) {
 
         this.hide = true;
-      const v = new Version;
+      const v = new Hevelius;
       this.version = v.version;
 
 /*      this.loginForm = new FormGroup({
