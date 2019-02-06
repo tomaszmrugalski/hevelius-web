@@ -20,16 +20,22 @@ if [ $? -ne 0 ]; then
    exit 1
 fi
 
-cd dist/hevelius
-
 if [ $# -ge 1 ] && [ $1 == "--local" ]; then
     DEST_HOST=
     DEST_DIR=/var/www/html
-    echo "Deploying locally (DEST_DIR=$DEST_DIR)"
+    echo "Deploying front-end locally (DEST_DIR=$DEST_DIR)"
+    cd dist/hevelius
     cp -rv * $DEST_DIR
+    echo "Deploying back-end locally (DEST_DIR=$DEST_DIR)"
+    cd ../..
+    cp -rv api $DEST_DIR
 else
     DEST_HOST=megaton.klub.com.pl
     DEST_DIR=/var/www/hevelius
-    echo "Deploying remotely (DEST_HOST=$DEST_HOST, DEST_DIR=$DEST_DIR)"
+    echo "Deploying front-end remotely (DEST_HOST=$DEST_HOST, DEST_DIR=$DEST_DIR)"
+    cd dist/hevelius
     scp -r * $DEST_HOST:$DEST_DIR
+    echo "Deploying back-end remotely (DEST_HOST=$DEST_HOST, DEST_DIR=$DEST_DIR)"
+    cd ../..
+    scp -r api $DEST_HOST:$DEST_DIR
 fi
