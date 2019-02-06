@@ -3,6 +3,15 @@
 DEST_SRV=megaton.klub.com.pl
 DEST_DIR=/var/www/hevelius
 
+if [ "$1" == "--help" ]; then
+    echo "Hevelius deployment script"
+    echo
+    echo "Supported parameters:"
+    echo "--help - displays this help"
+    echo "--local - deploys locally"
+    exit 1
+fi
+
 echo "STEP 1: building"
 ng build
 
@@ -13,5 +22,14 @@ fi
 
 cd dist/hevelius
 
-echo "STEP 2: copying files"
-scp -r * megaton.klub.com.pl:/var/www/hevelius
+if [ $# -ge 1 ] && [ $1 == "--local" ]; then
+    DEST_HOST=
+    DEST_DIR=/var/www/html
+    echo "Deploying locally (DEST_DIR=$DEST_DIR)"
+    cp -rv * $DEST_DIR
+else
+    DEST_HOST=megaton.klub.com.pl
+    DEST_DIR=/var/www/hevelius
+    echo "Deploying remotely (DEST_HOST=$DEST_HOST, DEST_DIR=$DEST_DIR)"
+    scp -r * $DEST_HOST:$DEST_DIR
+fi
