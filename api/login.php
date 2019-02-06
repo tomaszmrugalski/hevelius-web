@@ -89,8 +89,6 @@ class API {
             $this->answer_['result'] = RESULT_SUCCESS;
         }
 
-        $this->log($this->answer_['firstname']);
-        // $this->answer_['firstname'] = "Zażżżżóóółłłććć";
         print (json_encode($this->answer_, JSON_PRETTY_PRINT));
 
         if (isset($this->db_)) {
