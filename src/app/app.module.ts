@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { MaterialModule } from '../material.module';
 import { MessagesComponent } from './messages/messages.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MessagesComponent } from './messages/messages.component';
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

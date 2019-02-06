@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MessagesService } from '../services/messages.service';
 import { LoginService } from '../services/login.service';
 import { Hevelius } from '../../hevelius';
