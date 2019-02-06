@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MessagesService } from '../services/messages.service';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,16 @@ export class LoginService {
   login(username, password) {
       this.msg.add('LoginService::login(' + username + ', ' + password + ')');
 
-      // This sends a request with specified parameters (username, password)
-      // @todo: needs to replace this with MD5 hash.
-      this.http.post('/api/login.php', { username, password }).subscribe(
+      // We need to prepare credentials to be sent. Username is used as is,
+      // but the password needs to be passed through md5.
+      const md5 = new Md5();
+      let credentials = {
+          username: username,
+          password: md5.appendStr(password).end()
+      };
+
+      // This sends a request with specified parameters: username, md5(password)
+      this.http.post('/api/login.php', credentials ).subscribe(
           data => {
             this.msg.add('Data received: ' + JSON.stringify(data));
             // This prints the following:
