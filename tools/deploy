@@ -1,0 +1,17 @@
+#!/bin/bash
+
+DEST_SRV=megaton.klub.com.pl
+DEST_DIR=/var/www/hevelius
+
+echo "STEP 1: building"
+ng build
+
+if [ $? -ne 0 ]; then
+   echo "Building failed."
+   exit 1
+fi
+
+cd dist/hevelius
+
+echo "STEP 2: copying files"
+scp -r * megaton.klub.com.pl:/var/www/hevelius
