@@ -21,7 +21,7 @@ export class LoginService {
       // We need to prepare credentials to be sent. Username is used as is,
       // but the password needs to be passed through md5.
       const md5 = new Md5();
-      let credentials = {
+      const credentials = {
           username: username,
           password: md5.appendStr(password).end()
       };
@@ -29,6 +29,7 @@ export class LoginService {
       // This sends a request with specified parameters: username, md5(password)
       this.http.post('/api/login.php', credentials ).subscribe(
           data => {
+
             this.msg.add('Data received: ' + JSON.stringify(data));
             // This prints the following:
             // Data received: {"username":"thomson","password":"123"}
