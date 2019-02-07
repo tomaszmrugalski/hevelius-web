@@ -6,53 +6,58 @@ import { MessagesService } from '../services/messages.service';
 import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private msg: MessagesService,
-     private http: HttpClient) { }
+    constructor(private msg: MessagesService,
+    private http: HttpClient) { }
 
-  // This method is called locally when login form is filled in and submit
-  // button is pressed.
-  login(username, password) {
-      this.msg.add('LoginService::login(' + username + ', ' + password + ')');
+    // This method is called locally when login form is filled in and submit
+    // button is pressed.
+    login(username: string, password: string) {
+        // We need to prepare credentials to be sent. Username is used as is,
+        // but the password needs to be passed through md5.
+        const md5 = new Md5();
+        const credentials = {
+            username: username,
+            password: md5.appendStr(password).end()
+        };
 
-      // We need to prepare credentials to be sent. Username is used as is,
-      // but the password needs to be passed through md5.
-      const md5 = new Md5();
-      const credentials = {
-          username: username,
-          password: md5.appendStr(password).end()
-      };
+        this.msg.add('LoginService::login - calling http.post');
 
-      // This sends a request with specified parameters: username, md5(password)
-      this.http.post('/api/login.php', credentials ).subscribe(
-          data => {
+        // This sends a request with specified parameters: username, md5(password)
+        return this.http.post<any>('http://localhost/api/login.php', credentials )
+        .pipe(map(data => {
 
-            this.msg.add('Data received: ' + JSON.stringify(data));
-            // This prints the following:
-            // Data received: {"username":"thomson","password":"123"}
-            //
-            // This didn't work:
-            //            this.msg.add('username: ' + data.username);
-            // this.apps.push(data);
-         },
-          error => {
-              this.msg.add('Error when calling http.post:' + console.error(error));
-          }
-      );
+                this.msg.add('data received');
 
-/*   this.http.get('http://127.0.0.1/api/users/authenticate', { username, password })
-        .pipe(map(user => {
-           // login successful if there's a jwt token in the response
-           if (user && user.token) {
-              // store user details and jwt token in local storage to keep user logged
-              // in between page refreshes
-              localStorage.setItem('currentUser', JSON.stringify(user));
-               // this.currentUserSubject.next(user);
-           }
-           return user;
-     })); */
-  }
+                // This section is called when data has been returned. We need to check if the
+                // credentials sent were accepted or not.
+                if (data.result === 0) {
+                    // Login success
+                   this.loggedIn(data);
+                } else {
+                    // Login failed.
+                }
+
+                return data;
+            },
+            error => {
+              this.msg.add('Error when sending form, (http.post failed, error:' + console.error(error) + ')');
+            } ));
+
+    }
+
+    // This method is called when the response has arrived and indicates the credentials are ok
+    // and we have received actual user data (i.e. login was successful)
+    loggedIn(userData) {
+        // Keep the user's data in the local storage.
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+    }
+
+    // This method is called when the user is logged out.
+    logout() {
+        localStorage.removeItem('currentUser');
+    }
 }

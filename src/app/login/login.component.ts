@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 import { MessagesService } from '../services/messages.service';
 import { LoginService } from '../services/login.service';
 import { Hevelius } from '../../hevelius';
@@ -21,6 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(private messageService: MessagesService,
               private loginService: LoginService,
               private cfg: Hevelius,
+              private router: Router,
               private formBuilder: FormBuilder) {
 
         this.hide = true;
@@ -38,15 +41,26 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  // This method is called when Login button is clicked.
   onSubmit() {
-      this.messageService.add('submit clicked! onSubmit called');
       if (this.loginForm.invalid) {
-          this.messageService.add('LoginComponent::onSubmit: form is invalid.');
+          this.messageService.add('Please fill in all fields.');
           return;
       }
 
       this.loginService.login(this.loginForm.controls.username.value,
-                              this.loginForm.controls.password.value);
+                              this.loginForm.controls.password.value)
+        .pipe(first())
+        .subscribe(
+            data =>  {
+                if (data.result === 0) {
+                    this.messageService.add('LOGIN OK');
+                    this.router.navigate(['main']);
+                } else {
+                    this.messageService.add('LOGIN FAIL');
+                }
+            }
+        );
   }
 
 }
