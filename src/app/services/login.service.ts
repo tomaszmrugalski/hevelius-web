@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MessagesService } from '../services/messages.service';
 import { Md5 } from 'ts-md5/dist/md5';
+import { User } from '../models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +11,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 export class LoginService {
 
     constructor(private msg: MessagesService,
-    private http: HttpClient) { }
+                private http: HttpClient) { }
 
     // This method is called locally when login form is filled in and submit
     // button is pressed.
@@ -50,6 +50,14 @@ export class LoginService {
     loggedIn(userData) {
         // Keep the user's data in the local storage.
         localStorage.setItem('currentUser', JSON.stringify(userData));
+    }
+
+    public get getUser(): User {
+        const x = localStorage.getItem('currentUser');
+        if (x) {
+            return JSON.parse(x);
+        }
+        return null;
     }
 
     // This method is called when the user is logged out.
