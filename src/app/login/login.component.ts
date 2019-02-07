@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { MessagesService } from '../services/messages.service';
 import { LoginService } from '../services/login.service';
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
             data =>  {
                 if (data.result === 0) {
                     this.messageService.add('Login successful! Welcome, ' + data.firstname);
-                    this.router.navigate(['main']);
+                    this.router.navigateByUrl('/main');
                 } else {
                     this.messageService.add('Login incorrect.');
                 }
