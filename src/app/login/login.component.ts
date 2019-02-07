@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
  }
 
   ngOnInit() {
-      this.messageService.add('LoginComponent::ngOnInit called');
 
       this.loginForm = this.formBuilder.group({
           username: ['', Validators.required],
@@ -54,10 +53,10 @@ export class LoginComponent implements OnInit {
         .subscribe(
             data =>  {
                 if (data.result === 0) {
-                    this.messageService.add('LOGIN OK');
+                    this.messageService.add('Login successful! Welcome, ' + data.firstname);
                     this.router.navigate(['main']);
                 } else {
-                    this.messageService.add('LOGIN FAIL');
+                    this.messageService.add('Login incorrect.');
                 }
             }
         );

@@ -24,13 +24,9 @@ export class LoginService {
             password: md5.appendStr(password).end()
         };
 
-        this.msg.add('LoginService::login - calling http.post');
-
         // This sends a request with specified parameters: username, md5(password)
         return this.http.post<any>('http://localhost/api/login.php', credentials )
         .pipe(map(data => {
-
-                this.msg.add('data received');
 
                 // This section is called when data has been returned. We need to check if the
                 // credentials sent were accepted or not.

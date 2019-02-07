@@ -4,6 +4,8 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
+<mat-card class="login-card">
+    <mat-card-content>
 <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <table class="full-width" cellspacing="0">
     <tr>
@@ -31,3 +33,5 @@
   </table>
 
 </form>
+    </mat-card-content>
+</mat-card>
