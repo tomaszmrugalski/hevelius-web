@@ -25,7 +25,8 @@ export class LoginService {
         };
 
         // This sends a request with specified parameters: username, md5(password)
-        return this.http.post<any>('http://localhost/api/login.php', credentials )
+        // This version is for local debugging: return this.http.post<any>('https://localhost/api/login.php', credentials )
+        return this.http.post<any>('/api/login.php', credentials )
         .pipe(map(data => {
 
                 // This section is called when data has been returned. We need to check if the
