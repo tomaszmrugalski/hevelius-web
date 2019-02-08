@@ -9,20 +9,23 @@ define("RESULT_EMPTY", 2);
 class API {
 
     protected $db_;
-    protected $result_;
 
-    public $error_;
     public $log_file_;
 
     public function __construct() {
-
-        header('Content-Type: application/json; charset=utf-8');
 
         global $hevelius_db_host;
         global $hevelius_db_user;
         global $hevelius_db_pass;
         global $hevelius_db_name;
         global $hevelius_debug;
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($hevelius_debug) {
+            header("Access-Control-Allow-Origin: *");
+            header('Access-Control-Allow-Headers: origin, content-type');
+        }
 
         $this->answer_ = array();
 
@@ -114,7 +117,7 @@ class Login extends API {
     }
 
     public function prepareResponse() {
-        global $hevelius_db_debug;
+        global $hevelius_debug;
 
         // Get the data from the client. Note that the md5pass is
         // now actually an MD5 password.
@@ -130,7 +133,7 @@ class Login extends API {
             // Uh oh, mysql is broken. Let's display the error, maybe it will
             // give the user some clue.
             $txt = "MySQL error";
-            if ($hevelius_db_debug) {
+            if ($hevelius_debug) {
                 $txt .= ":" . $this->db_->error;
             }
             $this->error($txt);
@@ -161,7 +164,7 @@ class Login extends API {
             $this->answer_['aavso_id'] = $row['aavso_id'];
             $this->answer_['ftp_login'] = $row['ftp_login'];
             $this->answer_['ftp_pass'] = $row['ftp_pass'];
-            if ($hevelius_db_debug) {
+            if ($hevelius_debug) {
                 $this->log("success, logging in user: login=" . $this->answer_['login']
                            . ", user_id=" . $this->answer_['user_id']);
             }
