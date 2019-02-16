@@ -10,6 +10,8 @@ import { User } from '../models/user';
 })
 export class LoginService {
 
+    tmp_password: string;
+
     constructor(private msg: MessagesService,
                 private http: HttpClient) { }
 
@@ -24,9 +26,12 @@ export class LoginService {
             password: md5.appendStr(password).end()
         };
 
+        this.tmp_password = password;
+        console.log('Storing passwd:' + this.tmp_password);
+
         // This sends a request with specified parameters: username, md5(password)
         // This version is for local debugging: return this.http.post<any>('https://localhost/api/login.php', credentials )
-        return this.http.post<any>('/api/login.php', credentials )
+        return this.http.post<any>('http://localhost/api/login.php', credentials )
         .pipe(map(data => {
 
                 // This section is called when data has been returned. We need to check if the
@@ -49,11 +54,19 @@ export class LoginService {
     // This method is called when the response has arrived and indicates the credentials are ok
     // and we have received actual user data (i.e. login was successful)
     loggedIn(userData) {
+
+        // Ok, the password was never transmitted, but we remember it locally. It will be needed
+        // to generate MD5 digests for future queries.
+        console.log(userData);
+        console.log('Retrieving passwd:' + this.tmp_password);
+
+        userData['password'] = this.tmp_password;
+        console.log(userData);
         // Keep the user's data in the local storage.
         localStorage.setItem('currentUser', JSON.stringify(userData));
     }
 
-    public get getUser(): User {
+    public getUser(): User {
         const x = localStorage.getItem('currentUser');
         if (x) {
             return JSON.parse(x);
