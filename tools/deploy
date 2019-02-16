@@ -22,7 +22,11 @@ fi
 
 if [ $# -ge 1 ] && [ $1 == "--local" ]; then
     DEST_HOST=
-    DEST_DIR=/var/www/html
+    if [ "`uname`" == "Darwin" ]; then
+        DEST_DIR=~/public_html
+    else
+        DEST_DIR=/var/www/html
+    fi
     echo "Deploying front-end locally (DEST_DIR=$DEST_DIR)"
     cd dist/hevelius
     cp -rv * $DEST_DIR
