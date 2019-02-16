@@ -8,6 +8,9 @@ $hevelius_db_user = 'user';
 $hevelius_db_pass = 'password';
 $hevelius_db_name = 'database-name';
 
+$hevelius_root = '/var/www';
+$hevelius_logdir = '/var/www/logs';
+
 $hevelius_debug = true;
 
 ?>
