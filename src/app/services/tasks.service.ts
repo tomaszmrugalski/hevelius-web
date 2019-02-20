@@ -71,7 +71,7 @@ export class TasksService implements DataSource<Task> {
         const user = this.login.getUser();
         params.user_id = user.user_id;
         const md5 = new Md5();
-        params.password =  md5.appendStr(user.password).end();
+        params.password = String(md5.appendStr(user.pass_d).end());
 
         // There should be at least 3 parameters:
         // - user_id
