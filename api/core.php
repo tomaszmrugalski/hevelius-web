@@ -62,7 +62,8 @@ class API {
     }
 
     public function log($txt) {
-        $filename = "/var/www/html/logs/hevelius-api.txt";
+        global $hevelius_logdir;
+        $filename = $hevelius_logdir . "/hevelius-api.txt";
         $prefix = date('[Y-m-d H:i:s]');
         file_put_contents($filename, $prefix . " " . $txt."\n", FILE_APPEND);
     }
