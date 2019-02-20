@@ -58,6 +58,16 @@ export class TasksService implements DataSource<Task> {
         this.tasks.next(t);
     }
 
+    // This method is called when data is returned by backend
+    parseTasks(data) {
+        console.log('TasksService::parseTasks() - received data!');
+        console.log(data);
+        if (data.result == 0) {
+            console.log("Received %d task(s)", data.tasks.length);
+            this.tasks.next(data.tasks);
+        }
+    }
+
     // Supported parameters:
     // limit: number (default: 10)
     loadTasksReal(params: TasksParams): void {
@@ -83,22 +93,18 @@ export class TasksService implements DataSource<Task> {
 
 
         this.http.post<any>('http://localhost/api/tasks.php', params )
-        .subscribe(map(data => {
-
+        .subscribe(
+                data => {
                 // This section is called when data (presumably having a list of tasks)
                 // has been returned.
                 console.log("Received data!");
                 this.parseTasks(data);
             },
+
             error => {
                 this.msg.add('Error when requesting api/tasks.php data, (http.post failed, error:' + console.error(error) + ')');
-            } ));
+            } );
 
     }
 
-    // This method is called when data is returned by backend
-    parseTasks(data) {
-        console.log('TasksService::parseTasks() - received data!');
-        console.log(data);
-    }
 }
