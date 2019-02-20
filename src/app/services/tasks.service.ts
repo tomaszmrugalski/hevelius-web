@@ -6,7 +6,7 @@ import { User } from '../models/user';
 import { Task } from '../models/task';
 import { LoginService } from '../services/login.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import {CollectionViewer, DataSource} from '@angular/cdk/collections';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Md5 } from 'ts-md5/dist/md5';
 
 export interface TasksParams {
@@ -71,7 +71,8 @@ export class TasksService implements DataSource<Task> {
         const user = this.login.getUser();
         params.user_id = user.user_id;
         const md5 = new Md5();
-        params.password = String(md5.appendStr(user.pass_d).end());
+        console.log(user.password);
+        params.password = String(md5.appendStr(user.password).end());
 
         // There should be at least 3 parameters:
         // - user_id

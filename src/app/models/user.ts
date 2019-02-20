@@ -2,6 +2,8 @@ export class User {
     user_id: number;
     login: string;
 
+	password: string;
+
     // MD5 of a password
     pass_d: string;
     firstname: string;
