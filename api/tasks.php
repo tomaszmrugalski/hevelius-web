@@ -23,16 +23,17 @@ class Tasks extends API {
 
         // @TODO: Check credentials.
 
-        $q = "SELECT task_id, user_id, scope_id, object, ra, decl, ".
+        $q = "SELECT task_id, tasks.user_id, aavso_id, object, ra, decl, ".
              "exposure, descr, filter, binning, guiding, dither, ".
              "defocus, calibrate, solve, vphot, other_cmd, ".
              "min_alt, moon_distance, skip_before, skip_after, ".
              "min_interval, comment, state, imagename, ".
              "created, activated, performed, max_moon_phase, ".
              "max_sun_alt, auto_center, calibrated, solved, ".
-            "sent FROM tasks ORDER by task_id DESC LIMIT ".$limit;
-        $result = $this->db_->query($q);
-        if (!$result) {
+            "sent FROM tasks, users WHERE tasks.user_id = users.user_id ORDER by task_id DESC LIMIT ".$limit;
+		$result = $this->db_->query($q);
+
+		if (!$result) {
             // Uh oh, mysql is broken. Let's display the error, maybe it will
             // give the user some clue.
             $txt = "MySQL error";

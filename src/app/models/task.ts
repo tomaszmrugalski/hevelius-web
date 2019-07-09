@@ -11,7 +11,8 @@ export interface Date {
 
 export interface Task {
     task_id: number;
-    user_id: number;
+	user_id: number;
+	aavso_id: string; // not a real field (substituted by PHP)
     // scope_id: number;
     object: string;
     ra: number;

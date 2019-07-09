@@ -42,8 +42,6 @@ export class TasksService implements DataSource<Task> {
     }
 
     public loadTasks() {
-        // this.loadTasksFake();
-
         this.loadTasksReal({ limit: 1000 });
     }
 
@@ -51,7 +49,8 @@ export class TasksService implements DataSource<Task> {
         console.log('TaskService - loadTasks (faking one task)');
         const t = [{
             task_id: 1,
-            user_id: 1,
+			user_id: 1,
+			aavso_id: 'MTOA',
             object: 'Horsehead',
             ra: 12.3456,
             decl: 56.789,
@@ -110,5 +109,4 @@ export class TasksService implements DataSource<Task> {
             } );
 
     }
-
 }

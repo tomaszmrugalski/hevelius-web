@@ -4,3 +4,5 @@
 0.0.2 (2019 Jul 9)
  - increased default view to 1000 tasks
  - states column is now interpreted correctly
+ - Changelog added
+ - user AAVSO logins are now displayed
