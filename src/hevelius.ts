@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 export class Hevelius {
     title = 'Hevelius';
-    version = '0.0.1';
+    version = '0.0.2';
 
     apiUrl = 'http://127.0.0.1/api/';
 }

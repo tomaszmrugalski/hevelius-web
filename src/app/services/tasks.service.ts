@@ -8,6 +8,7 @@ import { LoginService } from '../services/login.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Md5 } from 'ts-md5/dist/md5';
+import { TaskStatesService } from './task-states.service';
 
 export interface TasksParams {
     limit?: number;    // number of tasks to be returned
@@ -21,12 +22,15 @@ export interface TasksParams {
 
 export class TasksService implements DataSource<Task> {
 
-    private tasks = new BehaviorSubject<Task[]>([]);
+	private tasks = new BehaviorSubject<Task[]>([]);
+	public states = new TaskStatesService();
 
     constructor(private msg: MessagesService,
                 private http: HttpClient,
                 private login: LoginService) {
 
+		console.log("#### Test:");
+		console.log(this.states.getState(1));
     }
 
     connect(collectionViewer: CollectionViewer): Observable<Task[]> {
@@ -40,7 +44,7 @@ export class TasksService implements DataSource<Task> {
     public loadTasks() {
         // this.loadTasksFake();
 
-        this.loadTasksReal({ limit: 9 });
+        this.loadTasksReal({ limit: 1000 });
     }
 
     private loadTasksFake() {
@@ -73,9 +77,9 @@ export class TasksService implements DataSource<Task> {
     loadTasksReal(params: TasksParams): void {
 
         console.log('loadTasksReal #1');
-        // If limit of tasks has not been specified, let's return 10.
+        // If limit of tasks has not been specified, let's return 1000.
         if (! params.hasOwnProperty('limit')) {
-            params.limit = 10;
+            params.limit = 1000;
         }
 
         const user = this.login.getUser();
