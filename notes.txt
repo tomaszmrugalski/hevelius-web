@@ -72,3 +72,8 @@ $ ng serve
 If ng serve fails to start, try deleting your node_modules directory
 and package-lock.json file and run npm install to recreate a clean
 node_modules directory and package-lock.json file.
+
+TODO:
+
+- http://localhost/ is hardcoded in 2 places (login, tasks). It works ok on billabong, but not on megaton
+  need a way to make that configurable
