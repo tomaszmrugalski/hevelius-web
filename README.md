@@ -2,6 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
 
+## Deveploment environment
+
+1. Install nodejs:
+
+```curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - ```
+
+ng is a command line tool from angular. If it's missing, use the following
+trick: export PATH=$PATH:./node_modules/.bin
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
