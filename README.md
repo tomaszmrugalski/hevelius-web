@@ -20,6 +20,13 @@ Experienced `error:03000086:digital envelope routines::initialization error`.
 This was worked around with `export NODE_OPTIONS=--openssl-legacy-provider`.
 I'll fix it properly by migrating to recent Angular.
 
+## Angular upgrade
+
+Upgrading one specific package: npm install @angular/material@^9.0.0
+
+^ - means major version must much, minor and patch can be updated.
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
@@ -47,3 +54,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## To install missing dependencies (e.g. when running fresh tree)
 
 npm install
+
+## TODO
+
+- remove unused modules from material.modules.ts (see
+  https://stackoverflow.com/questions/58594311/angular-material-index-d-ts-is-not-a-module
+  for context)
