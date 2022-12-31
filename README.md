@@ -13,7 +13,12 @@ trick: export PATH=$PATH:./node_modules/.bin
 
 If dependencies are missing (e.g. after git clean -fxd), install them: `npm
 install`. When trying to run ancient Angular 7, I had to upgrade to the latest
-versions in 7 first: `npm install --force @angular/cdk@~7.3.7  @angular/material@7.3.7`.
+versions in 7 first: `npm install --force @angular/cdk@~7.3.7
+@angular/material@7.3.7`.
+
+Experienced `error:03000086:digital envelope routines::initialization error`.
+This was worked around with `export NODE_OPTIONS=--openssl-legacy-provider`.
+I'll fix it properly by migrating to recent Angular.
 
 ## Development server
 
