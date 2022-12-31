@@ -11,6 +11,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ng is a command line tool from angular. If it's missing, use the following
 trick: export PATH=$PATH:./node_modules/.bin
 
+If dependencies are missing (e.g. after git clean -fxd), install them: `npm
+install`. When trying to run ancient Angular 7, I had to upgrade to the latest
+versions in 7 first: `npm install --force @angular/cdk@~7.3.7  @angular/material@7.3.7`.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
