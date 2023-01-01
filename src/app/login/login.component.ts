@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data =>  {
-                if (data.result === 0) {
+                if (data.status === true) {
                     this.messageService.add('Login successful! Welcome, ' + data.firstname);
                     this.router.navigateByUrl('/main');
                 } else {

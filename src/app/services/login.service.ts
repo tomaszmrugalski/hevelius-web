@@ -31,14 +31,13 @@ export class LoginService {
 
         // This sends a request with specified parameters: username, md5(password)
         // This version is for local debugging: return this.http.post<any>('https://localhost/api/login.php', credentials )
-        return this.http.post<any>('http://localhost/api/login.php', credentials )
+        return this.http.post<any>('http://localhost:5000/api/login', credentials )
         .pipe(map(data => {
-
                 // This section is called when data has been returned. We need to check if the
                 // credentials sent were accepted or not.
-                if (data.result === 0) {
+                if (data.status === true) {
                     // Login success
-                   this.loggedIn(data);
+                    this.loggedIn(data);
                 } else {
                     // Login failed.
                 }
