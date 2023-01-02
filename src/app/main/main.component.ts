@@ -24,10 +24,9 @@ export class MainComponent implements OnInit {
 
   constructor(private msg: MessagesService,
               private loginService: LoginService,
-              private http: HttpClient,
-              private cfg: Hevelius) {
-       this.version = this.cfg.version;
-       this.title = this.cfg.title;
+              private http: HttpClient) {
+       this.version = Hevelius.version;
+       this.title = Hevelius.title;
 
        console.log('MainComponent::ctor: Instantiating TasksService');
        this.dataSource = new TasksService(this.msg, this.http, this.loginService);

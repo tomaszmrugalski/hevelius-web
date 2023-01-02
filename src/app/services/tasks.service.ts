@@ -9,6 +9,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Md5 } from 'ts-md5/dist/md5';
 import { TaskStatesService } from './task-states.service';
+import { Hevelius } from 'src/hevelius';
 
 export interface TasksParams {
     limit?: number;    // number of tasks to be returned
@@ -42,7 +43,7 @@ export class TasksService implements DataSource<Task> {
     }
 
     public loadTasks() {
-        this.loadTasksReal({ limit: 1000 });
+        this.loadTasksReal({ limit: 10 });
     }
 
     private loadTasksFake() {
@@ -76,9 +77,9 @@ export class TasksService implements DataSource<Task> {
     loadTasksReal(params: TasksParams): void {
 
         console.log('loadTasksReal #1');
-        // If limit of tasks has not been specified, let's return 1000.
+        // If limit of tasks has not been specified, let's return 10.
         if (! params.hasOwnProperty('limit')) {
-            params.limit = 1000;
+            params.limit = 10;
         }
 
         const user = this.login.getUser();
@@ -95,7 +96,7 @@ export class TasksService implements DataSource<Task> {
         console.log(params);
 
 
-        this.http.post<any>('http://localhost/api/tasks.php', params )
+        this.http.post<any>(Hevelius.apiUrl + '/tasks', params )
         .subscribe(
                 data => {
                 // This section is called when data (presumably having a list of tasks)
@@ -105,7 +106,7 @@ export class TasksService implements DataSource<Task> {
             },
 
             error => {
-                this.msg.add('Error when requesting api/tasks.php data, (http.post failed, error:' + console.error(error) + ')');
+                this.msg.add('Error when requesting api/tasks data, (http.post failed, error:' + console.error(error) + ')');
             } );
 
     }

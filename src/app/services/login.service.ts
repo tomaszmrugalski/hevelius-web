@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { MessagesService } from '../services/messages.service';
 import { Md5 } from 'ts-md5/dist/md5';
 import { User } from '../models/user';
+import { Hevelius } from 'src/hevelius';
 
 @Injectable({
     providedIn: 'root'
@@ -31,7 +32,7 @@ export class LoginService {
 
         // This sends a request with specified parameters: username, md5(password)
         // This version is for local debugging: return this.http.post<any>('https://localhost/api/login.php', credentials )
-        return this.http.post<any>('http://localhost:5000/api/login', credentials )
+        return this.http.post<any>(Hevelius.apiUrl + '/login', credentials )
         .pipe(map(data => {
                 // This section is called when data has been returned. We need to check if the
                 // credentials sent were accepted or not.

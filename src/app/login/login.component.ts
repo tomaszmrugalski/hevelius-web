@@ -22,14 +22,12 @@ export class LoginComponent implements OnInit {
 
   constructor(private messageService: MessagesService,
               private loginService: LoginService,
-              private cfg: Hevelius,
               private router: Router,
               private formBuilder: FormBuilder) {
 
         this.hide = true;
-        this.version = this.cfg.version;
-        this.title = this.cfg.title;
-
+        this.version = Hevelius.version;
+        this.title = Hevelius.title;
  }
 
   ngOnInit() {
