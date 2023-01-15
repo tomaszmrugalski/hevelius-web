@@ -30,6 +30,7 @@ export class TasksService implements DataSource<Task> {
                 private http: HttpClient,
                 private login: LoginService) {
 
+        // TODO: remove this
 		console.log("#### Test:");
 		console.log(this.states.getState(1));
     }
@@ -44,6 +45,7 @@ export class TasksService implements DataSource<Task> {
 
     public loadTasks() {
         this.loadTasksReal({ limit: 10 });
+        //this.loadTasksFake();
     }
 
     private loadTasksFake() {
@@ -64,11 +66,78 @@ export class TasksService implements DataSource<Task> {
 
     // This method is called when data is returned by backend
     parseTasks(data) {
-        console.log('TasksService::parseTasks() - received data!');
-        console.log(data);
-        if (data.result == 0) {
-            console.log("Received %d task(s)", data.tasks.length);
-            this.tasks.next(data.tasks);
+
+        // Format of the API data returned:
+        // [
+        //     134233,
+        //     3,
+        //     "MTOA",
+        //     "B 343",
+        //     20.2447,
+        //     40.1447,
+        //     300,
+        //     "",
+        //     "HA",
+        //     1,
+        //     1,
+        //     1,
+        //     0,
+        //     1,
+        //     1,
+        //     0,
+        //     null,
+        //     30,
+        //     60,
+        //     "Wed, 03 Jun 2020 02:54:00 GMT",
+        //     "Wed, 03 Jun 2020 04:24:00 GMT",
+        //     0,
+        //     "2020-06-03 02:54:00 H:58,6 AZ:73 P:87,20 SH:-28,5 SAZ:12",
+        //     2,
+        //     null,
+        //     "Wed, 27 May 2020 21:37:44 GMT",
+        //     "Tue, 02 Jun 2020 21:35:00 GMT",
+        //     null,
+        //     100,
+        //     -12,
+        //     1,
+        //     0,
+        //     0,
+        //     0
+        //   ]
+        //
+        // What the function expects:
+        //
+        // const t = [{
+        //     task_id: 1,
+		// 	user_id: 1,
+		// 	aavso_id: 'MTOA',
+        //     object: 'Horsehead',
+        //     ra: 12.3456,
+        //     decl: 56.789,
+        //     exposure: 150,
+        //     state: 6
+        // }];
+        //
+        if (data) {
+            console.log("Received %d task(s)", data.length);
+            var tasks_list = []
+            for (let i = 0; i < data.length; i++) {
+                console.log("Processing item " + i)
+                var d = data[i]
+                console.log(d);
+                console.log(d[0])
+                tasks_list.push({
+                    task_id: d[0],
+                    user_id: d[1],
+                    aavso_id: d[2],
+                    object: d[3],
+                    ra: d[4],
+                    decl: d[5],
+                    exposure: d[6],
+                    state: d[7]
+                })
+            }
+            this.tasks.next(tasks_list);
         }
     }
 
