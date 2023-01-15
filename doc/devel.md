@@ -9,7 +9,6 @@ export NODE_OPTIONS=--openssl-legacy-provider
 export PATH=$PATH:./node_modules/.bin
 ```
 
-
 # Upgrading angular versions
 
 - `ng update` - tells what packages to upgrade
@@ -17,3 +16,12 @@ export PATH=$PATH:./node_modules/.bin
 - `npm view @angular-devkit/build-angular versions` - list all available versions of @angular-devkit/build-angular
 
 - `npm install --save-dev @angular-devkit/build-angular@0.11` - install specific version
+Instead of doing the PATH export, one can use `npx ng ...` to run ng. `npx` is
+smart enough to find `ng` locally.
+
+
+# Running tests
+
+# export NODE_OPTIONS=--openssl-legacy-provider # probably no longer needed
+export CHROME_BIN=chromium
+npm test
