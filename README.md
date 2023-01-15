@@ -1,8 +1,13 @@
 # Hevelius
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
+![Hevelius](src/assets/images/hevelius.jpg)
+
+This is a web interface (web app) for Hevelius, an astronomy processing software and observatory management system.
+It's in very early stages of development.
 
 ## Deveploment environment
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2 and is now upgraded to Angular 10.
 
 1. Install nodejs:
 
