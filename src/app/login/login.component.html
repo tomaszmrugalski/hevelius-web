@@ -8,31 +8,17 @@
 <mat-card class="login-card">
     <mat-card-content>
 <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <table class="full-width" cellspacing="0">
-      <tr><td><img src="assets/images/hevelius.jpg" title="Johannes Hevelius"/></td></tr>
-    <tr>
-      <td>
-        <mat-form-field class="full-width">
+  <img src="assets/images/hevelius.jpg" title="Johannes Hevelius"/>
+        <mat-form-field appearance="fill">
           <input matInput formControlName="username" placeholder="Your username" required>
         </mat-form-field>
-      </td>
-    </tr>
 
-    <tr>
-      <td>
-        <mat-form-field class="full-width">
+        <mat-form-field appearance="fill" >
           <input matInput formControlName="password" [type]="hide ? 'password' : 'text'"  placeholder="Your password" required>
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
-      </td>
-    </tr>
 
-    <tr>
-     <td>
-       <a mat-raised-button (click)="onSubmit()" color="primary">Login</a>
-     </td>
-    </tr>
-  </table>
+        <button mat-raised-button color="primary">Login</button>
 
 </form>
     </mat-card-content>
