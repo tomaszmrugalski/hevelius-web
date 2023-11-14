@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { MessagesService } from '../services/messages.service';
@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
 
     hide: boolean;
 
-    loginForm: FormGroup;
+    loginForm: UntypedFormGroup;
 
   constructor(private messageService: MessagesService,
               private loginService: LoginService,
               private router: Router,
-              private formBuilder: FormBuilder) {
+              private formBuilder: UntypedFormBuilder) {
 
         this.hide = true;
         this.version = Hevelius.version;
