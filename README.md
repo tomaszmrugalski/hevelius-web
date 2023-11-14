@@ -7,7 +7,7 @@ It's in very early stages of development.
 
 ## Deveploment environment
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2 and is now upgraded to Angular 10.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2 and is now upgraded to Angular 13.
 
 1. Install nodejs:
 
