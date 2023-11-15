@@ -22,6 +22,10 @@ smart enough to find `ng` locally.
 
 # Running tests
 
-# export NODE_OPTIONS=--openssl-legacy-provider # probably no longer needed
+# This is no longer needed once migrated to Angular 16.
+# export NODE_OPTIONS=--openssl-legacy-provider
+
+```
 export CHROME_BIN=chromium
 npm test
+```
