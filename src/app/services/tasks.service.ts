@@ -150,6 +150,10 @@ export class TasksService implements DataSource<Task> {
         }
 
         const user = this.login.getUser();
+        if (user == null) {
+            console.log('WARNING: Attempt to load tasks failed, no user logged in.');
+            return;
+        }
         params.user_id = user.user_id;
         const md5 = new Md5();
         console.log(user.password);
