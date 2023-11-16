@@ -3,7 +3,7 @@
 You need nodejs. The code is using Angular 16, so the oldest nodejs supported is 16.x. You can install it
 whatever way works for you. A simple installation is:
 
-```curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - ```
+```curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -```
 
 After getting the sources, you need to install all dependencies: `npm install`. Once installed, the code can be
 run with `ng serve`. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any
