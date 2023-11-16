@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
-    })
-    .compileComponents();
-  }));
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [MatToolbarModule],
+      declarations: [LoginComponent],
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
@@ -19,7 +19,23 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the app component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render the title in the span element', () => {
+    component.title = 'My Title';
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    const spanElement = compiled.querySelector('span');
+    expect(spanElement.textContent).toContain('My Title');
+  });
+
+  it('should render the version in the span element', () => {
+    component.version = '1.0';
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    const spanElement = compiled.querySelector('span');
+    expect(spanElement.textContent).toContain('1.0');
   });
 });
