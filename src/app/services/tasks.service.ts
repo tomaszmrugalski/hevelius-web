@@ -27,10 +27,6 @@ export class TasksService implements DataSource<Task> {
     constructor(private msg: MessagesService,
                 private http: HttpClient,
                 private login: LoginService) {
-
-        // TODO: remove this
-		console.log("#### Test:");
-		console.log(this.states.getState(1));
     }
 
     connect(collectionViewer: CollectionViewer): Observable<Task[]> {
