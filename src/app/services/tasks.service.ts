@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MessagesService } from '../services/messages.service';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { User } from '../models/user';
 import { Task } from '../models/task';
 import { LoginService } from '../services/login.service';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -120,10 +118,10 @@ export class TasksService implements DataSource<Task> {
         //
         if (data) {
             console.log("Received %d task(s)", data.length);
-            var tasks_list = []
+            const tasks_list = []
             for (let i = 0; i < data.length; i++) {
                 console.log("Processing item " + i)
-                var d = data[i]
+                const d = data[i]
                 console.log(d);
                 console.log(d[0])
                 tasks_list.push({
@@ -147,7 +145,7 @@ export class TasksService implements DataSource<Task> {
 
         console.log('loadTasksReal #1');
         // If limit of tasks has not been specified, let's return 10.
-        if (! params.hasOwnProperty('limit')) {
+        if (! Object.prototype.hasOwnProperty.call(params, "limit")) {
             params.limit = 10;
         }
 
