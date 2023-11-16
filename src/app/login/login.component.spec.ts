@@ -24,19 +24,17 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the title in the span element', () => {
-    component.title = 'My Title';
+  it('should render the title in the toolbar', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     const spanElement = compiled.querySelector('span');
-    expect(spanElement.textContent).toContain('My Title');
+    expect(spanElement.textContent).toContain('Hevelius');
   });
 
   it('should render the version in the span element', () => {
-    component.version = '1.0';
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     const spanElement = compiled.querySelector('span');
-    expect(spanElement.textContent).toContain('1.0');
+    expect(spanElement.textContent).toContain('0.0.3');
   });
 });

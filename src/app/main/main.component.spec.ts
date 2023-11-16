@@ -24,4 +24,18 @@ describe('MainComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the title in the toolbar', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    const spanElement = compiled.querySelector('span');
+    expect(spanElement.textContent).toContain('Hevelius');
+  });
+
+  it('should render the version in the span element', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    const spanElement = compiled.querySelector('span');
+    expect(spanElement.textContent).toContain('0.0.3');
+  });
 });
