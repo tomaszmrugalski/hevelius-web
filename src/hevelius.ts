@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 export class Hevelius {
     static title = 'Hevelius';
-    static version = '0.0.3';
+    static version = '0.0.4';
 
     // Make sure there is no trailing slash
     static apiUrl = 'http://localhost:5000/api';

@@ -36,6 +36,6 @@ describe('MainComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     const spanElement = compiled.querySelector('span');
-    expect(spanElement.textContent).toContain('0.0.3');
+    expect(spanElement.textContent).toContain('0.0.4');
   });
 });
