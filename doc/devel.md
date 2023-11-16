@@ -9,6 +9,19 @@ export NODE_OPTIONS=--openssl-legacy-provider
 export PATH=$PATH:./node_modules/.bin
 ```
 
+# Running tests
+
+- `ng test --browsers ChromeHeadlessCI --watch false`
+- `npm test --no-watch --no-progress --browsers=ChromeHeadlessCI`
+
+`watch false` causes the tests to be run once, rather than sit in the background and watch the files to be updated and run
+tests again.
+
+# Running linter (eslint)
+
+- `ng lint`
+- `npm run lint`
+
 # Upgrading angular versions
 
 - `ng update` - tells what packages to upgrade
@@ -21,9 +34,6 @@ smart enough to find `ng` locally.
 
 
 # Running tests
-
-# This is no longer needed once migrated to Angular 16.
-# export NODE_OPTIONS=--openssl-legacy-provider
 
 ```
 export CHROME_BIN=chromium
