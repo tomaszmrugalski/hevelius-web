@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../services/login.service';
 import { MessagesService } from '../services/messages.service';
 import { TasksService } from '../services/tasks.service';
 import { Hevelius } from '../../hevelius';
-import { User } from '../models/user';
-import { Task } from '../models/task';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +11,7 @@ import { Task } from '../models/task';
   styleUrls: ['./main.component.css']
 })
 
-export class MainComponent implements OnInit {
+export class MainComponent {
     title: string;
     version: string;
 
@@ -39,8 +37,4 @@ export class MainComponent implements OnInit {
            this.msg.add('User not logged in!');
        }*/
   }
-
-  ngOnInit() {
-  }
-
 }

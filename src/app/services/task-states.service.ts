@@ -11,13 +11,11 @@ export class TaskStatesService {
 		2: "active",
 		3: "queued",
 		4: "exec'd",
-		5: "done(prv)",
+        5: "done(prv)",
 		6: "done"
 	};
 
-  constructor() { }
-
-  public getState(state: number): string {
-	  return this.states[state];
-  }
+	public getState(state: number): string {
+		return this.states[state];
+	}
 }
