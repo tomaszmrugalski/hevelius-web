@@ -1,3 +1,9 @@
+0.0.4 (2023-11-17)
+ - Upgraded to Angular 16
+ - tslint replaced with es-lint
+ - fixed all tests
+ - github workflow added
+
 0.0.3 (2023-01-03)
  - Upgraded to Angular 10
  - the API URL is now configured in one place
