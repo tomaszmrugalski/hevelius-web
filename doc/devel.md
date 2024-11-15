@@ -9,6 +9,7 @@ export NODE_OPTIONS=--openssl-legacy-provider
 export PATH=$PATH:./node_modules/.bin
 ```
 
+
 # Running tests
 
 - `ng test --browsers ChromeHeadlessCI --watch false`
@@ -23,6 +24,8 @@ tests again.
 - `npm run lint`
 
 # Upgrading angular versions
+
+- `npm list` - list installed packages
 
 - `ng update` - tells what packages to upgrade
 
