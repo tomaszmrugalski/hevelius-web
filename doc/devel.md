@@ -32,6 +32,8 @@ tests again.
 Instead of doing the PATH export, one can use `npx ng ...` to run ng. `npx` is
 smart enough to find `ng` locally.
 
+You can also use @latest: `npm i typescript@latest --save-dev`
+
 
 # Running tests
 
