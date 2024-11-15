@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "hevelius:build"
+            "buildTarget": "hevelius:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "hevelius:build:production"
+              "buildTarget": "hevelius:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hevelius:build"
+            "buildTarget": "hevelius:build"
           }
         },
         "test": {
