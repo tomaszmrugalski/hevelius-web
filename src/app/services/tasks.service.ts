@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task';
 import { LoginService } from '../services/login.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { DataSource } from '@angular/cdk/collections';
 import { Md5 } from 'ts-md5/dist/md5';
 import { TaskStatesService } from './task-states.service';
 import { Hevelius } from 'src/hevelius';
@@ -29,11 +29,11 @@ export class TasksService implements DataSource<Task> {
                 private login: LoginService) {
     }
 
-    connect(collectionViewer: CollectionViewer): Observable<Task[]> {
+    connect(): Observable<Task[]> {
         return this.tasks.asObservable();
     }
 
-    disconnect(collectionViewer: CollectionViewer): void {
+    disconnect(): void {
         this.tasks.complete();
     }
 
