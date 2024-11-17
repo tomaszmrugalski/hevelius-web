@@ -3,9 +3,10 @@ import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { MessagesService } from '../services/messages.service';
-import { LoginService } from '../services/login.service';
+import { LoginService, LoginResponse } from '../services/login.service';
 import { Hevelius } from '../../hevelius';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-login',
@@ -51,7 +52,7 @@ export class LoginComponent implements OnInit {
                               this.loginForm.controls.password.value)
         .pipe(first())
         .subscribe(
-            data =>  {
+            (data: LoginResponse) =>  {
                 if (data.status === true) {
                     this.showMessage('Login successful! Welcome, ' + data.firstname);
                     this.router.navigateByUrl('/main');

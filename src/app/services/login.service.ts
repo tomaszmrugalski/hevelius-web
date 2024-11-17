@@ -5,6 +5,23 @@ import { MessagesService } from '../services/messages.service';
 import { Md5 } from 'ts-md5/dist/md5';
 import { User } from '../models/user';
 import { Hevelius } from 'src/hevelius';
+import { Observable } from 'rxjs';
+
+export interface LoginResponse {
+    status: boolean;
+    user_id?: number;
+    firstname?: string;
+    lastname?: string;
+    share?: string;
+    phone?: string;
+    email?: string;
+    permissions?: string;
+    aavso_id?: string;
+    ftp_login?: string;
+    ftp_pass?: string;
+    msg?: string;
+}
+
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +35,7 @@ export class LoginService {
 
     // This method is called locally when login form is filled in and submit
     // button is pressed.
-    login(username: string, password: string) {
+    login(username: string, password: string): Observable<LoginResponse> {
         // We need to prepare credentials to be sent. Username is used as is,
         // but the password needs to be passed through md5.
         const md5 = new Md5();
@@ -32,7 +49,7 @@ export class LoginService {
 
         // This sends a request with specified parameters: username, md5(password)
         // This version is for local debugging: return this.http.post<any>('https://localhost/api/login.php', credentials )
-        return this.http.post<any>(Hevelius.apiUrl + '/login', credentials )
+        return this.http.post<LoginResponse>(Hevelius.apiUrl + '/login', credentials )
         .pipe(map(data => {
                 // This section is called when data has been returned. We need to check if the
                 // credentials sent were accepted or not.
