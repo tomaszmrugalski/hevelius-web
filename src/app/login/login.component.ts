@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { MessagesService } from '../services/messages.service';
 import { LoginService } from '../services/login.service';
 import { Hevelius } from '../../hevelius';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(private messageService: MessagesService,
               private loginService: LoginService,
               private router: Router,
+              private snackBar: MatSnackBar,
               private formBuilder: UntypedFormBuilder) {
 
         this.hide = true;
@@ -41,7 +43,7 @@ export class LoginComponent implements OnInit {
   // This method is called when Login button is clicked.
   onSubmit() {
       if (this.loginForm.invalid) {
-          this.messageService.add('Please fill in all fields.');
+          this.showMessage('Please fill in all fields.');
           return;
       }
 
@@ -51,13 +53,25 @@ export class LoginComponent implements OnInit {
         .subscribe(
             data =>  {
                 if (data.status === true) {
-                    this.messageService.add('Login successful! Welcome, ' + data.firstname);
+                    this.showMessage('Login successful! Welcome, ' + data.firstname);
                     this.router.navigateByUrl('/main');
                 } else {
-                    this.messageService.add('Login incorrect.');
+                    this.showMessage('Login incorrect.');
                 }
             }
         );
   }
 
+
+  showMessage(text: string) {
+    this.snackBar.open(text, 'Close', {
+      duration: 3000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom'
+    });
+
+
+  }
+
 }
+

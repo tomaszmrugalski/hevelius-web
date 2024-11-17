@@ -14,7 +14,7 @@ import { LoginService } from './services/login.service';
 import { MaterialModule } from '../material.module';
 import { MessagesComponent } from './messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [
@@ -30,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MaterialModule,
-        HttpClientModule
+        HttpClientModule,
+        MatSnackBarModule
     ],
     providers: [
         TasksService,
