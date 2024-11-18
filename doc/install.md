@@ -1,6 +1,6 @@
 # Installation
 
-You need nodejs. The code is using Angular 16, so the oldest nodejs supported is 16.x. You can install it
+You need nodejs. The code is using Angular 17, so the oldest nodejs supported is 16.x. You can install it
 whatever way works for you. A simple installation is:
 
 ```curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -```
