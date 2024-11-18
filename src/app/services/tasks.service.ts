@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MessagesService } from '../services/messages.service';
 import { HttpClient } from '@angular/common/http';
-import { Task } from '../models/task';
+import { Task, TaskList } from '../models/task';
 import { LoginService } from '../services/login.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
@@ -14,6 +14,7 @@ export interface TasksParams {
     user_id?: number;
     password?: string;
 }
+
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,7 @@ export class TasksService implements DataSource<Task> {
 
     private loadTasksFake() {
         console.log('TaskService - loadTasks (faking one task)');
-        const t = [{
+        /* const t = [{
             task_id: 1,
 			user_id: 1,
 			aavso_id: 'MTOA',
@@ -55,12 +56,13 @@ export class TasksService implements DataSource<Task> {
             state: 6
         }];
 
-        this.tasks.next(t);
+        this.tasks.next(t); */
     }
 
     // This method is called when data is returned by backend
     parseTasks(data) {
 
+        // See the Task structure in the models/task.ts file.
         // Format of the API data returned:
         // [
         //     134233,
@@ -163,7 +165,7 @@ export class TasksService implements DataSource<Task> {
         console.log(params);
 
 
-        this.http.post<any>(Hevelius.apiUrl + '/tasks', params )
+        this.http.post<TaskList>(Hevelius.apiUrl + '/tasks', params )
         .subscribe(
                 data => {
                 // This section is called when data (presumably having a list of tasks)
