@@ -12,7 +12,6 @@ import { TasksService } from './services/tasks.service';
 import { LoginService } from './services/login.service';
 
 import { MaterialModule } from '../material.module';
-import { MessagesComponent } from './messages/messages.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -20,8 +19,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     declarations: [
         AppComponent,
         LoginComponent,
-        MainComponent,
-        MessagesComponent
+        MainComponent
     ],
     imports: [
         BrowserModule,

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MessagesService } from '../services/messages.service';
 import { HttpClient } from '@angular/common/http';
 import { Task, TaskList } from '../models/task';
 import { LoginService } from '../services/login.service';
@@ -25,8 +24,7 @@ export class TasksService implements DataSource<Task> {
 	private tasks = new BehaviorSubject<Task[]>([]);
 	public states = new TaskStatesService();
 
-    constructor(private msg: MessagesService,
-                private http: HttpClient,
+    constructor(private http: HttpClient,
                 private login: LoginService) {
     }
 
@@ -175,7 +173,7 @@ export class TasksService implements DataSource<Task> {
             },
 
             error => {
-                this.msg.add('Error when requesting api/tasks data, (http.post failed, error:' + console.error(error) + ')');
+                console.log('Error when requesting api/tasks data, (http.post failed, error:' + console.error(error) + ')');
             } );
 
     }

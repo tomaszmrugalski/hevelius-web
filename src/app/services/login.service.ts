@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { MessagesService } from '../services/messages.service';
 import { Md5 } from 'ts-md5/dist/md5';
 import { User } from '../models/user';
 import { Hevelius } from 'src/hevelius';
@@ -30,8 +29,7 @@ export class LoginService {
 
     tmp_password: string;
 
-    constructor(private msg: MessagesService,
-                private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
     // This method is called locally when login form is filled in and submit
     // button is pressed.
@@ -63,7 +61,7 @@ export class LoginService {
                 return data;
             },
             error => {
-              this.msg.add('Error when sending form, (http.post failed, error:' + console.error(error) + ')');
+              console.log('Error when sending form, (http.post failed, error:' + console.error(error) + ')');
             } ));
 
     }
