@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { MessagesService } from '../services/messages.service';
 import { LoginService, LoginResponse } from '../services/login.service';
 import { Hevelius } from '../../hevelius';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,8 +21,7 @@ export class LoginComponent implements OnInit {
 
     loginForm: UntypedFormGroup;
 
-  constructor(private messageService: MessagesService,
-              private loginService: LoginService,
+  constructor(private loginService: LoginService,
               private router: Router,
               private snackBar: MatSnackBar,
               private formBuilder: UntypedFormBuilder) {

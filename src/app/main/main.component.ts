@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../services/login.service';
-import { MessagesService } from '../services/messages.service';
 import { TasksService } from '../services/tasks.service';
 import { Hevelius } from '../../hevelius';
 
@@ -20,14 +19,13 @@ export class MainComponent {
     displayedColumns: string[] = ['task_id', 'user_id', 'state', 'object', 'ra', 'decl', 'exposure'];
 
 
-  constructor(private msg: MessagesService,
-              private loginService: LoginService,
+  constructor(private loginService: LoginService,
               private http: HttpClient) {
        this.version = Hevelius.version;
        this.title = Hevelius.title;
 
        console.log('MainComponent::ctor: Instantiating TasksService');
-       this.dataSource = new TasksService(this.msg, this.http, this.loginService);
+       this.dataSource = new TasksService(this.http, this.loginService);
 
        this.dataSource.loadTasks();
 /*
