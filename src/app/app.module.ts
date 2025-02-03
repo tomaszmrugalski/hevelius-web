@@ -13,32 +13,26 @@ import { LoginService } from './services/login.service';
 import { CoordsFormatterService } from './services/coords-formatter.service';
 
 import { MaterialModule } from '../material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppComponent,
         LoginComponent,
         MainComponent
     ],
-    imports: [
-        BrowserModule,
+    bootstrap: [
+        AppComponent
+    ], imports: [BrowserModule,
         AppRoutingModule,
         FormsModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MaterialModule,
-        HttpClientModule,
-        MatSnackBarModule
-    ],
-    providers: [
+        MatSnackBarModule], providers: [
         TasksService,
         LoginService,
-        CoordsFormatterService
-    ],
-    bootstrap: [
-        AppComponent
-    ]
-})
+        CoordsFormatterService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
