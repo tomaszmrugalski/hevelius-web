@@ -3,8 +3,6 @@
 Some useful commands:
 
 ```
-# Work around the old SSL problem (will be solved with Angular update)
-export NODE_OPTIONS=--openssl-legacy-provider
 # Use the local ng, if it's not globally installed
 export PATH=$PATH:./node_modules/.bin
 ```
@@ -25,6 +23,12 @@ export CHROME_BIN=/snap/bin/chromium
 
 - `ng lint`
 - `npm run lint`
+
+# Dependency hell and some tips how to deal with it
+
+- `npm update` (updates available dependencies in package-lock.json)
+- `npm explain foo` (explains why foo is in the dependencies)
+- `npm install --save core-js@^3` (upgrade corej-js to version 3.x)
 
 # Upgrading angular versions
 
