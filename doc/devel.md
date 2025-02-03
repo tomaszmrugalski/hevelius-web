@@ -15,8 +15,11 @@ export PATH=$PATH:./node_modules/.bin
 - `ng test --browsers ChromeHeadlessCI --watch false`
 - `npm test --no-watch --no-progress --browsers=ChromeHeadlessCI`
 
-`watch false` causes the tests to be run once, rather than sit in the background and watch the files to be updated and run
-tests again.
+`watch false` causes the tests to be run once, rather than sit in the background
+and watch the files to be updated and run tests again.
+
+If there are errors about chrome-headless not being found, this can help:
+export CHROME_BIN=/snap/bin/chromium
 
 # Running linter (eslint)
 

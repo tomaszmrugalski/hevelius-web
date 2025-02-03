@@ -5,7 +5,7 @@
 - Updated messages to use SnackBar instead of console log prints
 - Cleaned up LoginService to always return a proper structure
 - RA, Dec now formatted using sexagesimal format
-- Upgraded to Angular 17
+- Upgraded to Angular 17, then 18
 - Addressed es-linter issues
 - Removed old, unused PHP code for the server-side API
 
