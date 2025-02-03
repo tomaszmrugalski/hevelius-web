@@ -35,13 +35,13 @@
   <!-- Weight Column -->
   <ng-container matColumnDef="ra">
     <th mat-header-cell *matHeaderCellDef> RA </th>
-    <td mat-cell *matCellDef="let Task"> {{Task.ra}} </td>
+    <td mat-cell *matCellDef="let Task"> {{formatRA(Task.ra)}} </td>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="decl">
     <th mat-header-cell *matHeaderCellDef> Dec </th>
-    <td mat-cell *matCellDef="let Task"> {{Task.decl}} </td>
+    <td mat-cell *matCellDef="let Task"> {{formatDec(Task.decl)}} </td>
   </ng-container>
 
   <ng-container matColumnDef="filter">
