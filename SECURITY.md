@@ -3,7 +3,7 @@
 ## Supported Versions
 
 This project is in a very early stage of development. You must be crazy
-if you're running it. 
+if you're running it.
 
 | Version | Supported          |
 | ------- | ------------------ |
