@@ -10,6 +10,7 @@ import { MainComponent } from './main/main.component';
 
 import { TasksService } from './services/tasks.service';
 import { LoginService } from './services/login.service';
+import { CoordsFormatterService } from './services/coords-formatter.service';
 
 import { MaterialModule } from '../material.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,7 +34,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ],
     providers: [
         TasksService,
-        LoginService],
+        LoginService,
+        CoordsFormatterService
+    ],
     bootstrap: [
         AppComponent
     ]

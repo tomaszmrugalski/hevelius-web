@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../services/login.service';
 import { TasksService } from '../services/tasks.service';
 import { Hevelius } from '../../hevelius';
+import { CoordsFormatterService } from '../services/coords-formatter.service';
 
 @Component({
   selector: 'app-main',
@@ -20,19 +21,21 @@ export class MainComponent {
 
 
   constructor(private loginService: LoginService,
-              private http: HttpClient) {
+              private http: HttpClient,
+              private coordFormatter: CoordsFormatterService) {
        this.version = Hevelius.version;
        this.title = Hevelius.title;
 
-       console.log('MainComponent::ctor: Instantiating TasksService');
        this.dataSource = new TasksService(this.http, this.loginService);
 
        this.dataSource.loadTasks();
-/*
-       x = localStorage.getItem('currentUser');
-       const user = this.loginService.getUser();
-       if (!user) {
-           this.msg.add('User not logged in!');
-       }*/
+  }
+
+  formatRA(ra: number): string {
+    return this.coordFormatter.formatRA(ra);
+  }
+
+  formatDec(dec: number): string {
+    return this.coordFormatter.formatDec(dec);
   }
 }
