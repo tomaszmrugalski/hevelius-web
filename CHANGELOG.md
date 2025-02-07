@@ -1,6 +1,6 @@
 # Hevelius Web Interface Changelog
 
-0.0.5 (unreleased)
+0.1.0 (unreleased)
 
 - Updated messages to use SnackBar instead of console log prints
 - Cleaned up LoginService to always return a proper structure
@@ -8,6 +8,7 @@
 - Upgraded to Angular 17, then 18
 - Addressed es-linter issues
 - Removed old, unused PHP code for the server-side API
+- JWT support added
 
 0.0.4 (2023-11-17)
 
