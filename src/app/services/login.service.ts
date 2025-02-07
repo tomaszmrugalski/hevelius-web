@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 
 export interface LoginResponse {
     status: boolean;
+    token?: string;
     user_id?: number;
     firstname?: string;
     lastname?: string;
@@ -20,7 +21,6 @@ export interface LoginResponse {
     ftp_pass?: string;
     msg?: string;
 }
-
 
 @Injectable({
     providedIn: 'root'
@@ -51,19 +51,18 @@ export class LoginService {
         .pipe(map(data => {
                 // This section is called when data has been returned. We need to check if the
                 // credentials sent were accepted or not.
-                if (data.status === true) {
+                if (data.status === true && data.token) {
                     // Login success
                     this.loggedIn(data);
-                } else {
-                    // Login failed.
+                    localStorage.setItem('jwt_token', data.token);
+                    // Store user data
+                    localStorage.setItem('currentUser', JSON.stringify(data));
                 }
-
                 return data;
             },
             error => {
               console.log('Error when sending form, (http.post failed, error:' + console.error(error) + ')');
             } ));
-
     }
 
     // This method is called when the response has arrived and indicates the credentials are ok
@@ -91,6 +90,15 @@ export class LoginService {
 
     // This method is called when the user is logged out.
     logout() {
+        localStorage.removeItem('jwt_token');
         localStorage.removeItem('currentUser');
+    }
+
+    getToken(): string | null {
+        return localStorage.getItem('jwt_token');
+    }
+
+    isLoggedIn(): boolean {
+        return !!this.getToken();
     }
 }

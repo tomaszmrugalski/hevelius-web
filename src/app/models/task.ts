@@ -1,5 +1,3 @@
-
-
 // Represents a single date and time as returned by the backend.
 export interface Date {
     year: number;
@@ -15,41 +13,40 @@ export interface Date {
 // github.com/tomaszmrugala/hevelius-backend repository.
 export interface Task {
     task_id: number;
-	user_id: number;
-	aavso_id: string; // not a real field (substituted by PHP)
-    // scope_id: number;
+    user_id: number;
+    aavso_id: string;
     object: string;
     ra: number;
     decl: number;
     exposure: number;
-    descr: string;
-    filter: string;
-    binning: number;
-    guiding: boolean;
-    dither: boolean;
-    defocus: boolean;
-    calibrate: boolean;
-    solve: boolean;
-    vphot: boolean;
-    other_cmd: string;
-    min_alt: number;
-    moon_distance: number;
-    skip_before: Date;
-    skip_after: Date;
-    min_interval: number;
-    comment: string;
     state: number;
-    imagename: string;
-    created: Date;
-    activated: Date;
-    performed: Date;
-    max_moon_phase: number;
-    max_sun_alt: number;
-    auto_center: boolean;
-    calibrated: boolean;
-    solved: boolean;
-    sent: boolean;
+    activated?: string;
+    auto_center?: boolean;
+    binning?: number;
+    calibrate?: boolean;
+    calibrated?: boolean;
+    comment?: string;
+    created?: string;
+    descr?: string;
+    dither?: boolean;
+    filter?: string;
+    guiding?: boolean;
+    imagename?: string;
+    max_moon_phase?: number;
+    max_sun_alt?: number;
+    min_alt?: number;
+    min_interval?: number;
+    moon_distance?: number;
+    other_cmd?: string | null;
+    performed?: string;
+    sent?: boolean;
+    skip_after?: string;
+    skip_before?: string;
+    solve?: boolean;
+    solved?: boolean;
 }
 
 // For an array of these observations:
-export type TaskList = Task[];
+export interface TaskList {
+    tasks: Task[];
+}

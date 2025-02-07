@@ -14,6 +14,9 @@ export interface TasksParams {
     password?: string;
 }
 
+interface TaskResponse {
+    tasks: Task[];
+}
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +40,7 @@ export class TasksService implements DataSource<Task> {
     }
 
     public loadTasks() {
-        this.loadTasksReal({ limit: 10 });
+        this.loadTasksReal({ limit: 30 });
         //this.loadTasksFake();
     }
 
@@ -58,87 +61,17 @@ export class TasksService implements DataSource<Task> {
     }
 
     // This method is called when data is returned by backend
-    parseTasks(data) {
-
-        // See the Task structure in the models/task.ts file.
-        // Format of the API data returned:
-        // [
-        //     134233,
-        //     3,
-        //     "MTOA",
-        //     "B 343",
-        //     20.2447,
-        //     40.1447,
-        //     300,
-        //     "",
-        //     "HA",
-        //     1,
-        //     1,
-        //     1,
-        //     0,
-        //     1,
-        //     1,
-        //     0,
-        //     null,
-        //     30,
-        //     60,
-        //     "Wed, 03 Jun 2020 02:54:00 GMT",
-        //     "Wed, 03 Jun 2020 04:24:00 GMT",
-        //     0,
-        //     "2020-06-03 02:54:00 H:58,6 AZ:73 P:87,20 SH:-28,5 SAZ:12",
-        //     2,
-        //     null,
-        //     "Wed, 27 May 2020 21:37:44 GMT",
-        //     "Tue, 02 Jun 2020 21:35:00 GMT",
-        //     null,
-        //     100,
-        //     -12,
-        //     1,
-        //     0,
-        //     0,
-        //     0
-        //   ]
-        //
-        // What the function expects:
-        //
-        // const t = [{
-        //     task_id: 1,
-		// 	user_id: 1,
-		// 	aavso_id: 'MTOA',
-        //     object: 'Horsehead',
-        //     ra: 12.3456,
-        //     decl: 56.789,
-        //     exposure: 150,
-        //     state: 6
-        // }];
-        //
-        if (data) {
-            console.log("Received %d task(s)", data.length);
-            const tasks_list = []
-            for (let i = 0; i < data.length; i++) {
-                console.log("Processing item " + i)
-                const d = data[i]
-                console.log(d);
-                console.log(d[0])
-                tasks_list.push({
-                    task_id: d[0],
-                    user_id: d[1],
-                    aavso_id: d[2],
-                    object: d[3],
-                    ra: d[4],
-                    decl: d[5],
-                    exposure: d[6],
-                    state: d[7]
-                })
-            }
-            this.tasks.next(tasks_list);
+    parseTasks(data: TaskResponse) {
+        if (data && data.tasks) {
+            console.log("Received %d task(s)", data.tasks.length);
+            // The tasks are already in the correct format, we can use them directly
+            this.tasks.next(data.tasks);
         }
     }
 
     // Supported parameters:
     // limit: number (default: 10)
     loadTasksReal(params: TasksParams): void {
-
         console.log('loadTasksReal #1');
         // If limit of tasks has not been specified, let's return 10.
         if (! Object.prototype.hasOwnProperty.call(params, "limit")) {
@@ -151,30 +84,22 @@ export class TasksService implements DataSource<Task> {
             return;
         }
         params.user_id = user.user_id;
-        const md5 = new Md5();
-        console.log(user.password);
-        params.password = String(md5.appendStr(user.password).end());
 
-        // There should be at least 3 parameters:
+        // There should be at least 2 parameters:
         // - user_id
-        // - password (md5 of the actual passowrd)
         // - limit (number of tasks to be returned)
         console.log('loadTasksReal params:');
         console.log(params);
 
-
-        this.http.post<TaskList>(Hevelius.apiUrl + '/tasks', params )
-        .subscribe(
-                data => {
-                // This section is called when data (presumably having a list of tasks)
-                // has been returned.
-                console.log("Received data!");
-                this.parseTasks(data);
-            },
-
-            error => {
-                console.log('Error when requesting api/tasks data, (http.post failed, error:' + console.error(error) + ')');
-            } );
-
+        this.http.post<TaskResponse>(Hevelius.apiUrl + '/tasks', params)
+            .subscribe({
+                next: (data) => {
+                    console.log("Received list of tasks, parsing data");
+                    this.parseTasks(data);
+                },
+                error: (error) => {
+                    console.log('Error when requesting api/tasks data:', error);
+                }
+            });
     }
 }
