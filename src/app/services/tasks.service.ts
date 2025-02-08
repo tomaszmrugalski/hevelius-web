@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Task, TaskList } from '../models/task';
+import { Task } from '../models/task';
 import { LoginService } from '../services/login.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
-import { Md5 } from 'ts-md5/dist/md5';
 import { TaskStatesService } from './task-states.service';
 import { Hevelius } from 'src/hevelius';
 
