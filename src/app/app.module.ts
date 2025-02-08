@@ -17,11 +17,16 @@ import { MaterialModule } from '../material.module';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { TaskAddComponent } from './components/task-add/task-add.component';
 
 @NgModule({ declarations: [
         AppComponent,
         LoginComponent,
-        MainComponent
+        MainComponent,
+        TaskAddComponent
     ],
     bootstrap: [
         AppComponent
@@ -31,7 +36,10 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MaterialModule,
-        MatSnackBarModule], providers: [
+        MatSnackBarModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule], providers: [
         TasksService,
         LoginService,
         CoordsFormatterService,
