@@ -56,11 +56,20 @@ export class LoginService {
                     this.loggedIn(data);
                     localStorage.setItem('jwt_token', data.token);
                     // Store user data
+                    console.log('Storing user data:', data);
                     localStorage.setItem('currentUser', JSON.stringify(data));
                 }
                 return data;
             },
             error => {
+                if (error.status === 0) {
+                    // This typically means the backend is unresponsive.
+                    console.error('Backend is unresponsive. Please check the server.');
+                } else if (error.status === 500) {
+                    console.error('Backend Error: 500 Internal Server Error.');
+                } else {
+                    console.error('Error when requesting api/tasks data:', error);
+
               console.log('Error when sending form, (http.post failed, error:' + console.error(error) + ')');
             } ));
     }
@@ -68,14 +77,6 @@ export class LoginService {
     // This method is called when the response has arrived and indicates the credentials are ok
     // and we have received actual user data (i.e. login was successful)
     loggedIn(userData) {
-
-        // Ok, the password was never transmitted, but we remember it locally. It will be needed
-        // to generate MD5 digests for future queries.
-        console.log(userData);
-        console.log('Retrieving passwd:' + this.tmp_password);
-
-        userData['password'] = this.tmp_password;
-        console.log(userData);
         // Keep the user's data in the local storage.
         localStorage.setItem('currentUser', JSON.stringify(userData));
     }
