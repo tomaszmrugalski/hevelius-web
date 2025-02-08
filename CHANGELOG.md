@@ -9,6 +9,7 @@
 - Addressed es-linter issues
 - Removed old, unused PHP code for the server-side API
 - JWT support added
+- Implemented adding new tasks
 
 0.0.4 (2023-11-17)
 

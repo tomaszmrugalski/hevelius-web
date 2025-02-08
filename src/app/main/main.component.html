@@ -1,6 +1,12 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
   <span>{{ title }} {{version}}</span>
+  <span class="spacer"></span>
+  <span>Tasks</span>
+  <span class="spacer"></span>
+    <button mat-mini-fab color="primary" (click)="openAddTaskDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 
