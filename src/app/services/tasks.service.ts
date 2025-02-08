@@ -71,7 +71,6 @@ export class TasksService implements DataSource<Task> {
     // Supported parameters:
     // limit: number (default: 10)
     loadTasksReal(params: TasksParams): void {
-        console.log('loadTasksReal #1');
         // If limit of tasks has not been specified, let's return 10.
         if (! Object.prototype.hasOwnProperty.call(params, "limit")) {
             params.limit = 10;
@@ -87,13 +86,11 @@ export class TasksService implements DataSource<Task> {
         // There should be at least 2 parameters:
         // - user_id
         // - limit (number of tasks to be returned)
-        console.log('loadTasksReal params:');
-        console.log(params);
 
         this.http.post<TaskResponse>(Hevelius.apiUrl + '/tasks', params)
             .subscribe({
                 next: (data) => {
-                    console.log("Received list of tasks, parsing data");
+                    // console.log("Received list of tasks, parsing data");
                     this.parseTasks(data);
                 },
                 error: (error) => {
