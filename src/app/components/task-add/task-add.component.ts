@@ -26,13 +26,13 @@ export class TaskAddComponent implements OnInit {
     const skipAfterDefault = new Date('2099-12-31T23:59:59');
 
     this.taskForm = this.fb.group({
-      scope_id: ['', [Validators.required]],
+      scope_id: ['1', [Validators.required]],
       object: ['', [Validators.maxLength(64)]],
-      ra: ['', [Validators.required, Validators.min(0), Validators.max(24)]],
-      decl: ['', [Validators.required, Validators.min(-90), Validators.max(90)]],
-      exposure: ['', [Validators.min(0)]],
+      ra: ['12.34', [Validators.required, Validators.min(0), Validators.max(24)]],
+      decl: ['56.78', [Validators.required, Validators.min(-90), Validators.max(90)]],
+      exposure: ['60', [Validators.min(0)]],
       descr: ['', [Validators.maxLength(1024)]],
-      filter: ['', [Validators.maxLength(16)]],
+      filter: ['CV', [Validators.maxLength(16)]],
       binning: [1, [Validators.min(1), Validators.max(4)]],
       guiding: [true],
       dither: [false],
