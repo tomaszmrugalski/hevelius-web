@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 import { LoginService, LoginResponse } from '../services/login.service';
 import { Hevelius } from '../../hevelius';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -49,16 +49,26 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.loginForm.controls.username.value,
                               this.loginForm.controls.password.value)
         .pipe(first())
-        .subscribe(
-            (data: LoginResponse) =>  {
+        .subscribe({
+            next: (data: LoginResponse) =>  {
                 if (data.status === true) {
                     this.showMessage('Login successful! Welcome, ' + data.firstname);
                     this.router.navigateByUrl('/main');
                 } else {
                     this.showMessage('Login incorrect.');
                 }
+            },
+            error: (error: HttpErrorResponse) => {
+                // Check if backend is unresponsive (status === 0), or returns 500 error.
+                if (error.status === 0) {
+                    this.showMessage('Backend is unresponsive. Please check the server.');
+                } else if (error.status === 500) {
+                    this.showMessage('Backend Error: 500 Internal Server Error.');
+                } else {
+                    this.showMessage(`Login failed with error code: ${error.status}`);
+                }
             }
-        );
+        });
   }
 
 
@@ -73,4 +83,3 @@ export class LoginComponent implements OnInit {
   }
 
 }
-
