@@ -60,18 +60,7 @@ export class LoginService {
                     localStorage.setItem('currentUser', JSON.stringify(data));
                 }
                 return data;
-            },
-            error => {
-                if (error.status === 0) {
-                    // This typically means the backend is unresponsive.
-                    console.error('Backend is unresponsive. Please check the server.');
-                } else if (error.status === 500) {
-                    console.error('Backend Error: 500 Internal Server Error.');
-                } else {
-                    console.error('Error when requesting api/tasks data:', error);
-
-              console.log('Error when sending form, (http.post failed, error:' + console.error(error) + ')');
-            } ));
+            }));
     }
 
     // This method is called when the response has arrived and indicates the credentials are ok
