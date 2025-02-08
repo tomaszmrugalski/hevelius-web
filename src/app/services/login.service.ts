@@ -27,8 +27,6 @@ export interface LoginResponse {
 })
 export class LoginService {
 
-    tmp_password: string;
-
     constructor(private http: HttpClient) { }
 
     // This method is called locally when login form is filled in and submit
@@ -41,9 +39,6 @@ export class LoginService {
             username: username,
             password: md5.appendStr(password).end()
         };
-
-        this.tmp_password = password;
-        console.log('Storing passwd:' + this.tmp_password);
 
         // This sends a request with specified parameters: username, md5(password)
         // This version is for local debugging: return this.http.post<any>('https://localhost/api/login.php', credentials )
