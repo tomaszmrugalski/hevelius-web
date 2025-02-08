@@ -4,6 +4,8 @@ import { LoginService } from '../services/login.service';
 import { TasksService } from '../services/tasks.service';
 import { Hevelius } from '../../hevelius';
 import { CoordsFormatterService } from '../services/coords-formatter.service';
+import { TaskAddComponent } from '../components/task-add/task-add.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-main',
@@ -20,9 +22,11 @@ export class MainComponent {
     displayedColumns: string[] = ['task_id', 'user_id', 'state', 'object', 'ra', 'decl', 'exposure'];
 
 
+
   constructor(private loginService: LoginService,
               private http: HttpClient,
-              private coordFormatter: CoordsFormatterService) {
+              private coordFormatter: CoordsFormatterService,
+              private dialog: MatDialog) {
        this.version = Hevelius.version;
        this.title = Hevelius.title;
 
@@ -38,4 +42,20 @@ export class MainComponent {
   formatDec(dec: number): string {
     return this.coordFormatter.formatDec(dec);
   }
+
+  openAddTaskDialog() {
+    const dialogRef = this.dialog.open(TaskAddComponent, {
+      width: '800px',
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Refresh the tasks list if a new task was added
+        // this.tasksService.loadTasks();
+        console.log('TODO Task added, need refresh the list');
+      }
+    });
+  }
+
 }
