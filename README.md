@@ -1,3 +1,6 @@
+![CodeQL](https://github.com/tomaszmrugalski/hevelius-web/actions/workflows/github-code-scanning/codeql/badge.svg)
+![NodeJS](https://github.com/tomaszmrugalski/hevelius-web/actions/workflows/node.js.yml/badge.svg)
+
 # Hevelius
 
 ![Hevelius](src/assets/images/hevelius.jpg)
