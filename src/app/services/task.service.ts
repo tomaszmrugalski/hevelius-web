@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Hevelius } from 'src/hevelius';
+import { Task } from '../models/task';
 
-export interface TaskAddResponse {
+export interface TaskResponse {
   status: boolean;
   task_id?: number;
+  task?: Task;
   msg?: string;
 }
 
-export interface TaskAddRequest {
+export interface TaskRequest {
   user_id: number;
   scope_id: number;
   object?: string;
@@ -37,10 +39,18 @@ export interface TaskAddRequest {
 @Injectable({
   providedIn: 'root'
 })
-export class TaskAddService {
+export class TaskService {
   constructor(private http: HttpClient) { }
 
-  addTask(task: TaskAddRequest): Observable<TaskAddResponse> {
-    return this.http.post<TaskAddResponse>(`${Hevelius.apiUrl}/task-add`, task);
+  addTask(task: TaskRequest): Observable<TaskResponse> {
+    return this.http.post<TaskResponse>(`${Hevelius.apiUrl}/task-add`, task);
+  }
+
+  updateTask(task: TaskRequest & { task_id: number }): Observable<TaskResponse> {
+    return this.http.post<TaskResponse>(`${Hevelius.apiUrl}/task-update`, task);
+  }
+
+  getTask(taskId: number): Observable<TaskResponse> {
+    return this.http.get<TaskResponse>(`${Hevelius.apiUrl}/task-get?task_id=${taskId}`);
   }
 }
