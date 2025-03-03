@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TaskAddService, TaskAddRequest } from '../../services/task-add.service';
+import { TaskService, TaskRequest } from '../../services/task.service';
 import { LoginService } from '../../services/login.service';
 import { Task } from '../../models/task';
 
@@ -23,7 +23,7 @@ export class TaskViewComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private taskAddService: TaskAddService,
+    private taskService: TaskService,
     private loginService: LoginService,
     private dialogRef: MatDialogRef<TaskViewComponent>,
     private snackBar: MatSnackBar,
@@ -114,17 +114,25 @@ export class TaskViewComponent implements OnInit {
           ...formValue
         };
 
-        // TODO: Add task update service call here
-        this.showMessage('Task update functionality coming soon');
-        this.dialogRef.close(true);
+        this.taskService.updateTask(updateData).subscribe({
+          next: (response) => {
+            if (response.status) {
+              this.showMessage('Task updated successfully');
+              this.dialogRef.close(true);
+            } else {
+              this.showMessage(response.msg || 'Failed to update task');
+            }
+          },
+          error: this.handleError.bind(this)
+        });
       } else {
         // Add new task
-        const taskData: TaskAddRequest = {
+        const taskData: TaskRequest = {
           user_id: user.user_id,
           ...formValue
         };
 
-        this.taskAddService.addTask(taskData).subscribe({
+        this.taskService.addTask(taskData).subscribe({
           next: (response) => {
             if (response.status) {
               this.showMessage(`Task created successfully with ID: ${response.task_id}`);
@@ -133,19 +141,21 @@ export class TaskViewComponent implements OnInit {
               this.showMessage(response.msg || 'Failed to create task');
             }
           },
-          error: (error) => {
-            if (error.status === 0) {
-              this.showMessage('Server is unreachable');
-            } else if (error.status === 500) {
-              this.showMessage('Server error occurred');
-            } else {
-              this.showMessage(error.message || 'Error creating task');
-            }
-          }
+          error: this.handleError.bind(this)
         });
       }
     } else {
       this.showMessage('Please correct the form errors before submitting');
+    }
+  }
+
+  private handleError(error: any) {
+    if (error.status === 0) {
+      this.showMessage('Server is unreachable');
+    } else if (error.status === 500) {
+      this.showMessage('Server error occurred');
+    } else {
+      this.showMessage(error.message || 'Error processing task');
     }
   }
 
