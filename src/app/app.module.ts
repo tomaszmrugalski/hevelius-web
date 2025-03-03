@@ -20,13 +20,13 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { TaskAddComponent } from './components/task-add/task-add.component';
+import { TaskViewComponent } from './components/task-view/task-view.component';
 
 @NgModule({ declarations: [
         AppComponent,
         LoginComponent,
         MainComponent,
-        TaskAddComponent
+        TaskViewComponent
     ],
     bootstrap: [
         AppComponent
