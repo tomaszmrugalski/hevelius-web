@@ -4,8 +4,16 @@
 #
 # For IE 9-11 support, please remove 'not' from the last line of the file and adjust as needed
 
-> 0.5%
-last 2 versions
-Firefox ESR
-not dead
-not IE 9-11
+# Supported browsers
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Edge versions
+last 2 Safari versions
+last 2 iOS versions
+last 2 ChromeAndroid versions
+last 2 FirefoxAndroid versions
+
+# Note: we've removed:
+# - kaios 2.5
+# - op_mini all
+# as they require ES5 output which is no longer supported by Angular
