@@ -21,12 +21,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TaskViewComponent } from './components/task-view/task-view.component';
+import { LongPressDirective } from './directives/long-press.directive';
 
 @NgModule({ declarations: [
         AppComponent,
         LoginComponent,
         MainComponent,
-        TaskViewComponent
+        TaskViewComponent,
+        LongPressDirective
     ],
     bootstrap: [
         AppComponent
