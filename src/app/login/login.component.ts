@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
     title: string;
     version: string;
-
+    backendVersion: string = 'Unknown';
     hide: boolean;
 
     loginForm: UntypedFormGroup;
@@ -36,6 +36,21 @@ export class LoginComponent implements OnInit {
       this.loginForm = this.formBuilder.group({
           username: ['', Validators.required],
           password: ['', Validators.required]
+      });
+      this.fetchBackendVersion();
+  }
+
+  private fetchBackendVersion() {
+      this.loginService.getBackendVersion().pipe(first()).subscribe({
+          next: (version: string) => {
+              this.backendVersion = version;
+          },
+          error: (error: HttpErrorResponse) => {
+              this.backendVersion = 'Unresponsive';
+              if (error.status === 0) {
+                  console.warn('Backend is unreachable');
+              }
+          }
       });
   }
 

@@ -86,4 +86,10 @@ export class LoginService {
     isLoggedIn(): boolean {
         return !!this.getToken();
     }
+
+    getBackendVersion(): Observable<string> {
+        return this.http.get<{version: string}>(Hevelius.apiUrl + '/version').pipe(
+            map(response => response.version)
+        );
+    }
 }
