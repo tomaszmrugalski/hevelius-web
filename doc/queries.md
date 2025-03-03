@@ -1,5 +1,8 @@
-================================================================================
+# Old iTeleskop.org queries
 
+## Total exposure time
+
+```sql
 select	details.*, total.*, details.suma_Czasu/total.suma_czasu, details.ile_zadan/total.ile_zadan
 from
 (
@@ -22,9 +25,11 @@ select  sum(t.exposure) as suma_czasu,
 ) as total
 
 order by 3 desc ,4 desc
+```
 
-================================================================================
+## Total exposure time per user
 
+```sql
 select	details.*,-- total.*,
                 round(100*details.suma_Czasu/total.suma_czasu,2) as perc_czas,
         round(100*details.ile_zadan/total.ile_zadan,2) as perc_zadan,
@@ -52,7 +57,9 @@ from
         ) shares
 order by perc_czas desc
 
-================================================================================
+## Shares per user
+
+```sql
 select u.user_id, u.lastname, u.share, u.share/t.total_share as perc_share
 from
 (select sum(share) as total_share
@@ -61,3 +68,4 @@ from
  cross join users u
 order by 3 desc
  ;
+```
