@@ -46,14 +46,16 @@ export class MainComponent {
   openAddTaskDialog() {
     const dialogRef = this.dialog.open(TaskViewComponent, {
       width: '800px',
-      disableClose: true
+      disableClose: true,
+      data: {
+        mode: 'add'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // Refresh the tasks list if a new task was added
-        // this.tasksService.loadTasks();
-        console.log('TODO Task added, need refresh the list');
+        this.dataSource.loadTasks();
       }
     });
   }
