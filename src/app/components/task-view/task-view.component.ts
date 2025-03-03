@@ -6,18 +6,18 @@ import { TaskAddService, TaskAddRequest } from '../../services/task-add.service'
 import { LoginService } from '../../services/login.service';
 
 @Component({
-  selector: 'app-task-add',
-  templateUrl: './task-add.component.html',
-  styleUrls: ['./task-add.component.css']
+  selector: 'app-task-view',
+  templateUrl: './task-view.component.html',
+  styleUrls: ['./task-view.component.css']
 })
-export class TaskAddComponent implements OnInit {
+export class TaskViewComponent implements OnInit {
   taskForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private taskAddService: TaskAddService,
     private loginService: LoginService,
-    private dialogRef: MatDialogRef<TaskAddComponent>,
+    private dialogRef: MatDialogRef<TaskViewComponent>,
     private snackBar: MatSnackBar
   ) {}
 
