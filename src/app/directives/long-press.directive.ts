@@ -4,14 +4,14 @@ import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
   selector: '[appLongPress]'
 })
 export class LongPressDirective {
-  @Output() longPress = new EventEmitter();
-  private timeout: any;
+  @Output() longPress = new EventEmitter<Event>();
+  private timeout: number | undefined;
   private duration = 1000; // Duration in milliseconds
 
   @HostListener('mousedown', ['$event'])
   @HostListener('touchstart', ['$event'])
-  onMouseDown(event: any) {
-    this.timeout = setTimeout(() => {
+  onMouseDown(event: Event) {
+    this.timeout = window.setTimeout(() => {
       this.longPress.emit(event);
     }, this.duration);
   }
@@ -21,6 +21,8 @@ export class LongPressDirective {
   @HostListener('touchend')
   @HostListener('touchcancel')
   onMouseUp() {
-    clearTimeout(this.timeout);
+    if (this.timeout) {
+      window.clearTimeout(this.timeout);
+    }
   }
 }
