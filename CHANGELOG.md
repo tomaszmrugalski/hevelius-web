@@ -6,6 +6,7 @@
 - Doc cleaned up
 - Updated github workflows, cleaned up some old tests
 - The backend version is now reported on the login page
+- Menu redesigned to be more user friendly
 
 0.1.0 (2025-03-02)
 

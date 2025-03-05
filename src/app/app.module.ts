@@ -22,6 +22,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TaskViewComponent } from './components/task-view/task-view.component';
 import { LongPressDirective } from './directives/long-press.directive';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -41,7 +43,9 @@ import { LongPressDirective } from './directives/long-press.directive';
         MatSnackBarModule,
         MatDialogModule,
         MatDatepickerModule,
-        MatNativeDateModule], providers: [
+        MatNativeDateModule,
+        MatMenuModule,
+        MatIconModule], providers: [
         TasksService,
         LoginService,
         CoordsFormatterService,
