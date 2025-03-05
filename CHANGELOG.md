@@ -1,5 +1,12 @@
 # Hevelius Web Interface Changelog
 
+0.2.0 (unreleased)
+
+- Added ability to edit tasks (long press a task)
+- Doc cleaned up
+- Updated github workflows, cleaned up some old tests
+- The backend version is now reported on the login page
+
 0.1.0 (2025-03-02)
 
 - Updated messages to use SnackBar instead of console log prints
