@@ -6,6 +6,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -18,7 +21,10 @@ describe('MainComponent', () => {
         MatTableModule,
         MatToolbarModule,
         MatIconModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatSnackBarModule
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
