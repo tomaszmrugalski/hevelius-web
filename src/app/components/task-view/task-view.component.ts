@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskService, TaskRequest } from '../../services/task.service';
 import { LoginService } from '../../services/login.service';
 import { Task } from '../../models/task';
+import { HttpErrorResponse } from '@angular/common/http';
 
 interface DialogData {
   task?: Task;
@@ -149,7 +150,7 @@ export class TaskViewComponent implements OnInit {
     }
   }
 
-  private handleError(error: any) {
+  private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       this.showMessage('Server is unreachable');
     } else if (error.status === 500) {
