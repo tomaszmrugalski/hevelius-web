@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginService } from '../services/login.service';
-import { TasksService } from '../services/tasks.service';
-import { Hevelius } from '../../hevelius';
-import { CoordsFormatterService } from '../services/coords-formatter.service';
-import { TaskViewComponent } from '../components/task-view/task-view.component';
+import { LoginService } from '../../services/login.service';
+import { TasksService } from '../../services/tasks.service';
+import { Hevelius } from '../../../hevelius';
+import { CoordsFormatterService } from '../../services/coords-formatter.service';
+import { TaskViewComponent } from '../../components/task-view/task-view.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Task } from '../models/task';
+import { Task } from '../../models/task';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.css']
 })
 
-export class MainComponent {
+export class TasksComponent {
     title: string;
     version: string;
 
