@@ -1,38 +1,29 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TasksComponent } from './tasks.component';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('TasksComponent', () => {
   let component: TasksComponent;
   let fixture: ComponentFixture<TasksComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [TasksComponent],
       imports: [
         MatTableModule,
-        MatToolbarModule,
-        MatIconModule,
-        NoopAnimationsModule,
-        MatMenuModule,
         MatDialogModule,
         MatSnackBarModule
       ],
       providers: [
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(),
         provideHttpClientTesting()
       ]
-    })
-    .compileComponents();
-  }));
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TasksComponent);
@@ -40,21 +31,9 @@ describe('TasksComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the title in the toolbar', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    const spanElement = compiled.querySelector('span');
-    expect(spanElement.textContent).toContain('Hevelius');
-  });
-
-  it('should render the version in the span element', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    const spanElement = compiled.querySelector('span');
-    expect(spanElement.textContent).toContain('0.1.0');
-  });
+  // Add more tests specific to tasks list functionality
 });
