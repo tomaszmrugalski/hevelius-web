@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { LoginComponent } from './login/login.component';
-import { MainComponent } from './main/main.component';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 import { TasksService } from './services/tasks.service';
 import { LoginService } from './services/login.service';
@@ -28,7 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
 @NgModule({ declarations: [
         AppComponent,
         LoginComponent,
-        MainComponent,
+        TasksComponent,
         TaskViewComponent,
         LongPressDirective
     ],
