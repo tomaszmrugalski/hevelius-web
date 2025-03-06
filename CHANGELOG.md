@@ -7,6 +7,8 @@
 - Updated github workflows, cleaned up some old tests
 - The backend version is now reported on the login page
 - Menu redesigned to be more user friendly
+- Night plan implemented (experimental)
+- The title now shows the number of tasks in the night plan
 
 0.1.0 (2025-03-02)
 

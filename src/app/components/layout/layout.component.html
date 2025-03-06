@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <span>{{ title }} {{ version }}</span>
+  <span>{{ headerTitle }}</span>
   <span class="spacer"></span>
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
     <mat-icon>menu</mat-icon>
@@ -14,10 +14,10 @@
       <span>Add New Task</span>
     </button>
     <button mat-menu-item routerLink="/night-plan">
-        <mat-icon>nightlight</mat-icon>
-        <span>Night Plan</span>
-      </button>
-    </mat-menu>
+      <mat-icon>nightlight</mat-icon>
+      <span>Night Plan</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
 
 <div class="content">
