@@ -25,6 +25,7 @@ import { TaskViewComponent } from './components/task-view/task-view.component';
 import { LongPressDirective } from './directives/long-press.directive';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { NightPlanComponent } from './components/night-plan/night-plan.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { MatIconModule } from '@angular/material/icon';
         LayoutComponent,
         TasksComponent,
         TaskViewComponent,
-        LongPressDirective
+        LongPressDirective,
+        NightPlanComponent
     ],
     bootstrap: [
         AppComponent
