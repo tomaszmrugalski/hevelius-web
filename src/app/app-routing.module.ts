@@ -1,13 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { LayoutComponent } from './components/layout/layout.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'tasks', component: TasksComponent },
-    { path: '', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'tasks', component: TasksComponent },
+      { path: '', redirectTo: 'tasks', pathMatch: 'full' }
+    ]
+  }
 ];
 
 @NgModule({
