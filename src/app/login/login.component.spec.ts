@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Hevelius } from '../../hevelius';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -74,7 +75,7 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     const spanElement = compiled.querySelector('span');
-    expect(spanElement.textContent).toContain('0.1.0');
+    expect(spanElement.textContent).toContain(Hevelius.version);
   });
 
   it('should fetch backend version on init', fakeAsync(() => {
