@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
             next: (data: LoginResponse) =>  {
                 if (data.status === true) {
                     this.showMessage('Login successful! Welcome, ' + data.firstname);
-                    this.router.navigateByUrl('/main');
+                    this.router.navigateByUrl('/tasks');
                 } else {
                     this.showMessage('Login incorrect.');
                 }

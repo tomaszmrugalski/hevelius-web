@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { LoginComponent } from './login/login.component';
-import { MainComponent } from './main/main.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 import { TasksService } from './services/tasks.service';
 import { LoginService } from './services/login.service';
@@ -24,17 +25,23 @@ import { TaskViewComponent } from './components/task-view/task-view.component';
 import { LongPressDirective } from './directives/long-press.directive';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { NightPlanComponent } from './components/night-plan/night-plan.component';
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent,
         LoginComponent,
-        MainComponent,
+        LayoutComponent,
+        TasksComponent,
         TaskViewComponent,
-        LongPressDirective
+        LongPressDirective,
+        NightPlanComponent
     ],
     bootstrap: [
         AppComponent
-    ], imports: [BrowserModule,
+    ],
+    imports: [
+        BrowserModule,
         AppRoutingModule,
         FormsModule,
         BrowserAnimationsModule,
@@ -45,7 +52,9 @@ import { MatIconModule } from '@angular/material/icon';
         MatDatepickerModule,
         MatNativeDateModule,
         MatMenuModule,
-        MatIconModule], providers: [
+        MatIconModule
+    ],
+    providers: [
         TasksService,
         LoginService,
         CoordsFormatterService,
@@ -55,5 +64,6 @@ import { MatIconModule } from '@angular/material/icon';
             useClass: AuthInterceptor,
             multi: true
         }
-    ] })
+    ]
+})
 export class AppModule { }
