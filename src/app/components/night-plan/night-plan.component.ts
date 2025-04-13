@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NightPlanService } from '../../services/night-plan.service';
 import { CoordsFormatterService } from '../../services/coords-formatter.service';
-import { Task } from '../../models/task';
 
 @Component({
     selector: 'app-night-plan',
