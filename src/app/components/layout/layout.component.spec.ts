@@ -16,7 +16,6 @@ describe('LayoutComponent', () => {
   let component: LayoutComponent;
   let fixture: ComponentFixture<LayoutComponent>;
   let nightPlanService: jasmine.SpyObj<NightPlanService>;
-  let router: Router;
 
   beforeEach(async () => {
     nightPlanService = jasmine.createSpyObj('NightPlanService', ['getTaskCount']);
@@ -29,7 +28,6 @@ describe('LayoutComponent', () => {
         MatIconModule,
         MatToolbarModule,
         MatDialogModule,
-        // RouterTestingModule,
         NoopAnimationsModule
       ],
       providers: [

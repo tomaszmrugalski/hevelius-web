@@ -4,6 +4,7 @@ import { TaskViewComponent } from '../task-view/task-view.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { NightPlanService } from '../../services/night-plan.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-layout',
@@ -16,7 +17,8 @@ export class LayoutComponent {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private nightPlanService: NightPlanService
+    private nightPlanService: NightPlanService,
+    private loginService: LoginService
   ) {
     // Subscribe to router events to update the header title
     this.router.events.pipe(
@@ -34,16 +36,18 @@ export class LayoutComponent {
   }
 
   openAddTaskDialog() {
-    const dialogRef = this.dialog.open(TaskViewComponent, {
+    this.dialog.open(TaskViewComponent, {
       width: '800px',
       disableClose: true,
       data: {
         mode: 'add'
       }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // Handle dialog close if needed
-    });
   }
+
+  logout() {
+    this.loginService.logout();
+    this.router.navigate(['/login']);
+  }
+
 }
