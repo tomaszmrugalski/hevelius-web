@@ -5,6 +5,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 import { User } from '../models/user';
 import { Hevelius } from 'src/hevelius';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface LoginResponse {
     status: boolean;
@@ -27,7 +28,10 @@ export interface LoginResponse {
 })
 export class LoginService {
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private router: Router
+    ) { }
 
     // This method is called locally when login form is filled in and submit
     // button is pressed.
@@ -91,5 +95,16 @@ export class LoginService {
         return this.http.get<{version: string}>(Hevelius.apiUrl + '/version').pipe(
             map(response => response.version)
         );
+    }
+
+    handleTokenExpiration() {
+        // Clear the stored token and user data
+        this.logout();
+
+        // Redirect to login page with return URL
+        const currentUrl = this.router.url;
+        this.router.navigate(['/login'], {
+            queryParams: { returnUrl: currentUrl }
+        });
     }
 }

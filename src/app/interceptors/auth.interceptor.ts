@@ -3,14 +3,20 @@ import {
     HttpRequest,
     HttpHandler,
     HttpEvent,
-    HttpInterceptor
+    HttpInterceptor,
+    HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private loginService: LoginService) {}
+    constructor(
+        private loginService: LoginService,
+        private router: Router
+    ) {}
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         const token = this.loginService.getToken();
@@ -23,6 +29,14 @@ export class AuthInterceptor implements HttpInterceptor {
             });
         }
 
-        return next.handle(request);
+        return next.handle(request).pipe(
+            catchError((error: HttpErrorResponse) => {
+                if (error.status === 401) {
+                    // Token expired or invalid
+                    this.loginService.handleTokenExpiration();
+                }
+                return throwError(() => error);
+            })
+        );
     }
 }
