@@ -15,6 +15,12 @@ import { BehaviorSubject } from 'rxjs';
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
   let fixture: ComponentFixture<LayoutComponent>;
+
+  /* This warning is disabled, because we need to inject dependencies, even
+     if we're not directly using them, as they're used by the component itself. */
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  let router: Router;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
   let nightPlanService: jasmine.SpyObj<NightPlanService>;
 
   beforeEach(async () => {
@@ -37,12 +43,9 @@ describe('LayoutComponent', () => {
       ]
     }).compileComponents();
 
-    router = TestBed.inject(Router);
-  });
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(LayoutComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
