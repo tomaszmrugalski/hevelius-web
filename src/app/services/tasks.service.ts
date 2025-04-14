@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Task } from '../models/task';
-import { LoginService } from '../services/login.service';
+import { TaskParams } from '../models/task-response';
+import { LoginService } from './login.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
 import { TaskStatesService } from './task-states.service';
@@ -13,10 +14,6 @@ export interface TasksParams {
     password?: string;
 }
 
-interface TaskResponse {
-    tasks: Task[];
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,9 +22,33 @@ export class TasksService implements DataSource<Task> {
 
 	private tasks = new BehaviorSubject<Task[]>([]);
 	public states = new TaskStatesService();
+	private currentParams: TaskParams = {
+		page: 1,
+		per_page: 50,
+		sort_by: 'ra',
+		sort_order: 'asc'
+	};
+
+	// Add pagination info
+	private totalTasks = new BehaviorSubject<number>(0);
+	private currentPage = new BehaviorSubject<number>(1);
+	private totalPages = new BehaviorSubject<number>(1);
 
     constructor(private http: HttpClient,
                 private login: LoginService) {
+    }
+
+    // Getters for pagination info
+    getTotalTasks(): Observable<number> {
+        return this.totalTasks.asObservable();
+    }
+
+    getCurrentPage(): Observable<number> {
+        return this.currentPage.asObservable();
+    }
+
+    getTotalPages(): Observable<number> {
+        return this.totalPages.asObservable();
     }
 
     connect(): Observable<Task[]> {
@@ -38,10 +59,10 @@ export class TasksService implements DataSource<Task> {
         this.tasks.complete();
     }
 
-    public loadTasks() {
-        this.loadTasksReal({ limit: 30 });
-        //this.loadTasksFake();
-    }
+    // public loadTasks() {
+    //     this.loadTasksReal({ limit: 30 });
+    //     //this.loadTasksFake();
+    // }
 
     private loadTasksFake() {
         console.log('TaskService - loadTasks (faking one task)');
@@ -60,7 +81,7 @@ export class TasksService implements DataSource<Task> {
     }
 
     // This method is called when data is returned by backend
-    parseTasks(data: TaskResponse) {
+    parseTasks(data: import('../models/task-response').TaskResponse) {
         if (data && data.tasks) {
             console.log("Received %d task(s)", data.tasks.length);
             // The tasks are already in the correct format, we can use them directly
@@ -87,11 +108,45 @@ export class TasksService implements DataSource<Task> {
         // - user_id
         // - limit (number of tasks to be returned)
 
-        this.http.post<TaskResponse>(Hevelius.apiUrl + '/tasks', params)
+        this.http.post<import('../models/task-response').TaskResponse>(Hevelius.apiUrl + '/tasks', params)
             .subscribe({
                 next: (data) => {
                     // console.log("Received list of tasks, parsing data");
                     this.parseTasks(data);
+                },
+                error: (error) => {
+                    console.log('Error when requesting api/tasks data:', error);
+                }
+            });
+    }
+
+    // Update params and load tasks
+    loadTasks(params?: Partial<TaskParams>): void {
+        if (params) {
+            this.currentParams = { ...this.currentParams, ...params };
+        }
+
+        const user = this.login.getUser();
+        if (!user) {
+            console.log('WARNING: Attempt to load tasks failed, no user logged in.');
+            return;
+        }
+
+        // Convert params to HttpParams
+        let httpParams = new HttpParams();
+        Object.entries(this.currentParams).forEach(([key, value]) => {
+            if (value !== undefined) {
+                httpParams = httpParams.set(key, value.toString());
+            }
+        });
+
+        this.http.get<import('../models/task-response').TaskResponse>(Hevelius.apiUrl + '/tasks', { params: httpParams })
+            .subscribe({
+                next: (response) => {
+                    this.tasks.next(response.tasks);
+                    this.totalTasks.next(response.total);
+                    this.currentPage.next(response.page);
+                    this.totalPages.next(response.pages);
                 },
                 error: (error) => {
                     console.log('Error when requesting api/tasks data:', error);
