@@ -1,6 +1,6 @@
 # Hevelius Web Interface Changelog
 
-0.2.0 (unreleased)
+0.2.0 (2025-04-13)
 
 - Added ability to edit tasks (long press a task)
 - Doc cleaned up
