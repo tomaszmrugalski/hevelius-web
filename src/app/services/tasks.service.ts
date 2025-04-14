@@ -25,8 +25,8 @@ export class TasksService implements DataSource<Task> {
 	private currentParams: TaskParams = {
 		page: 1,
 		per_page: 50,
-		sort_by: 'ra',
-		sort_order: 'asc'
+		sort_by: 'task_id',
+		sort_order: 'desc'
 	};
 
 	// Add pagination info
