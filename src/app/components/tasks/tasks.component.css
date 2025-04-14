@@ -39,7 +39,15 @@ mat-paginator {
   gap: 1rem;
 }
 
+.filter-toggle {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .filters-form {
+  overflow: hidden;  /* Ensure animation works smoothly */
   margin-bottom: 1rem;
   background: #f5f5f5;
   padding: 1rem;
