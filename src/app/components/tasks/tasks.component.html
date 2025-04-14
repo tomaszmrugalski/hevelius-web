@@ -1,6 +1,14 @@
 <div class="tasks-container">
-  <!-- Filter row above the table -->
-  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="filters-form">
+  <!-- Add toggle button -->
+  <button mat-button (click)="toggleFilters()" class="filter-toggle">
+    <mat-icon>{{ isFilterVisible ? 'expand_less' : 'expand_more' }}</mat-icon>
+    {{ isFilterVisible ? 'Hide Filters' : 'Show Filters' }}
+  </button>
+
+  <!-- Make filter form collapsible -->
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()"
+        class="filters-form"
+        [@filterExpand]="isFilterVisible ? 'expanded' : 'collapsed'">
     <div class="filters-header">
       <div class="filter-cell">
         <mat-form-field>

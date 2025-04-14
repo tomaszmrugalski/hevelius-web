@@ -11,11 +11,29 @@ import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.css']
+  styleUrls: ['./tasks.component.css'],
+  animations: [
+    trigger('filterExpand', [
+      state('collapsed', style({
+        height: '0px',
+        minHeight: '0',
+        padding: '0',
+        opacity: '0'
+      })),
+      state('expanded', style({
+        height: '*',
+        padding: '1rem'
+      })),
+      transition('expanded <=> collapsed', [
+        animate('200ms ease-in-out')
+      ])
+    ])
+  ]
 })
 export class TasksComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
@@ -35,6 +53,16 @@ export class TasksComponent implements OnInit, OnDestroy {
   pageSize = 50;
   private subscriptions: Subscription[] = [];
   filterForm: FormGroup;
+  isFilterVisible = false;
+
+  states = [
+    { value: 0, label: 'Template' },
+    { value: 1, label: 'New' },
+    { value: 2, label: 'Activated' },
+    { value: 3, label: 'In Queue' },
+    { value: 4, label: 'Executed' },
+    { value: 5, label: 'Done' }
+  ];
 
   constructor(
     private loginService: LoginService,
@@ -50,29 +78,22 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   private initFilterForm() {
     this.filterForm = this.fb.group({
-      ra_min: [null],
-      ra_max: [null],
-      decl_min: [null],
-      decl_max: [null],
-      performed_after: [null],
-      performed_before: [null]
+      task_id: [null],
+      owner: [null],
+      state: [null],
+      object: [null],
+      ra: [null],
+      decl: [null],
+      exposure: [null]
     });
   }
 
   applyFilters() {
     const filters = this.filterForm.value;
 
-    // Convert dates to ISO strings if they exist
-    if (filters.performed_after) {
-      filters.performed_after = filters.performed_after.toISOString();
-    }
-    if (filters.performed_before) {
-      filters.performed_before = filters.performed_before.toISOString();
-    }
-
     // Remove null values
     Object.keys(filters).forEach(key => {
-      if (filters[key] === null) {
+      if (filters[key] === null || filters[key] === '') {
         delete filters[key];
       }
     });
@@ -164,6 +185,10 @@ export class TasksComponent implements OnInit, OnDestroy {
       sort_by: this.currentSort.sort_by,
       sort_order: this.currentSort.sort_order
     });
+  }
+
+  toggleFilters() {
+    this.isFilterVisible = !this.isFilterVisible;
   }
 
   ngOnDestroy() {
