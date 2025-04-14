@@ -26,6 +26,9 @@ import { LongPressDirective } from './directives/long-press.directive';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { NightPlanComponent } from './components/night-plan/night-plan.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     declarations: [
@@ -52,7 +55,10 @@ import { NightPlanComponent } from './components/night-plan/night-plan.component
         MatDatepickerModule,
         MatNativeDateModule,
         MatMenuModule,
-        MatIconModule
+        MatIconModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatExpansionModule
     ],
     providers: [
         TasksService,
