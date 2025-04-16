@@ -1,5 +1,11 @@
 # Hevelius Web Interface Changelog
 
+0.3.0 (unreleased)
+
+ - Pagination for tasks added
+ - Sorting for tasks added
+ - Filtering for tasks added
+
 0.2.0 (2025-04-13)
 
 - Added ability to edit tasks (long press a task)
