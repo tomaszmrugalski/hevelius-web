@@ -5,6 +5,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TasksComponent', () => {
   let component: TasksComponent;
@@ -16,7 +17,8 @@ describe('TasksComponent', () => {
       imports: [
         MatTableModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        NoopAnimationsModule
       ],
       providers: [
         provideHttpClient(),
