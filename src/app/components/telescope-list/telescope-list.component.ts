@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TelescopeService, Telescope } from '../../services/telescope.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-telescope-list',
@@ -7,7 +8,7 @@ import { TelescopeService, Telescope } from '../../services/telescope.service';
   styleUrls: ['./telescope-list.component.css']
 })
 export class TelescopeListComponent implements OnInit {
-  telescopes: Telescope[] = [];
+  dataSource = new MatTableDataSource<Telescope>();
   displayedColumns: string[] = [
     'name',
     'descr',
@@ -28,7 +29,7 @@ export class TelescopeListComponent implements OnInit {
   private loadTelescopes(): void {
     this.telescopeService.getTelescopes().subscribe(
       telescopes => {
-        this.telescopes = telescopes;
+        this.dataSource.data = telescopes;
       },
       error => {
         console.error('Error loading telescopes:', error);
