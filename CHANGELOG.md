@@ -5,6 +5,9 @@
  - Pagination for tasks added
  - Sorting for tasks added
  - Filtering for tasks added
+ - Telescopes list added
+ - When adding or editing tasks, it's now possible to select a scope
+   from the list
 
 0.2.0 (2025-04-13)
 
