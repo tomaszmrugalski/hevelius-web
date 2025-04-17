@@ -9,10 +9,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { TelescopeListComponent } from './components/telescope-list/telescope-list.component';
 
 import { TasksService } from './services/tasks.service';
 import { LoginService } from './services/login.service';
 import { CoordsFormatterService } from './services/coords-formatter.service';
+import { TelescopeService } from './services/telescope.service';
 
 import { MaterialModule } from '../material.module';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -29,6 +31,7 @@ import { NightPlanComponent } from './components/night-plan/night-plan.component
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [
@@ -38,7 +41,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
         TasksComponent,
         TaskViewComponent,
         LongPressDirective,
-        NightPlanComponent
+        NightPlanComponent,
+        TelescopeListComponent
     ],
     bootstrap: [
         AppComponent
@@ -58,12 +62,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatIconModule,
         MatPaginatorModule,
         MatSortModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatTableModule
     ],
     providers: [
         TasksService,
         LoginService,
         CoordsFormatterService,
+        TelescopeService,
         provideHttpClient(withInterceptorsFromDi()),
         {
             provide: HTTP_INTERCEPTORS,

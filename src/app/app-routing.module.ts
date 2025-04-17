@@ -5,6 +5,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NightPlanComponent } from './components/night-plan/night-plan.component';
+import { TelescopeListComponent } from './components/telescope-list/telescope-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
     children: [
       { path: 'tasks', component: TasksComponent },
       { path: 'night-plan', component: NightPlanComponent },
+      { path: 'scopes', component: TelescopeListComponent },
       { path: '', redirectTo: 'tasks', pathMatch: 'full' }
     ]
   }
