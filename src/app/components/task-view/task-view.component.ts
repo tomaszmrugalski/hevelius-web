@@ -6,6 +6,7 @@ import { TaskService, TaskRequest } from '../../services/task.service';
 import { LoginService } from '../../services/login.service';
 import { Task } from '../../models/task';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TelescopeService, Telescope } from '../../services/telescope.service';
 
 interface DialogData {
   task?: Task;
@@ -21,11 +22,13 @@ export class TaskViewComponent implements OnInit {
   taskForm: FormGroup;
   mode: 'add' | 'edit' = 'add';
   originalTask?: Task;
+  telescopes: Telescope[] = [];
 
   constructor(
     private fb: FormBuilder,
     private taskService: TaskService,
     private loginService: LoginService,
+    private telescopeService: TelescopeService,
     private dialogRef: MatDialogRef<TaskViewComponent>,
     private snackBar: MatSnackBar,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogData | null
@@ -37,6 +40,7 @@ export class TaskViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadTelescopes();
     this.initializeForm();
 
     if (this.mode === 'edit' && this.originalTask) {
@@ -50,12 +54,32 @@ export class TaskViewComponent implements OnInit {
     }
   }
 
+  private loadTelescopes() {
+    this.telescopeService.getTelescopes().subscribe({
+      next: (telescopes) => {
+        // Filter out inactive telescopes
+        this.telescopes = telescopes.filter(t => t.active);
+
+        // If we're in add mode and have active telescopes, set the default value
+        if (this.mode === 'add' && this.telescopes.length > 0) {
+          this.taskForm.patchValue({
+            scope_id: this.telescopes[0].scope_id
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error loading telescopes:', error);
+        this.showMessage('Failed to load telescopes');
+      }
+    });
+  }
+
   private initializeForm() {
     const skipBeforeDefault = new Date('2000-01-01T00:00:00');
     const skipAfterDefault = new Date('2099-12-31T23:59:59');
 
     this.taskForm = this.fb.group({
-      scope_id: ['1', [Validators.required]],
+      scope_id: [null, [Validators.required]],
       object: ['', [Validators.maxLength(64)]],
       ra: ['12.34', [Validators.required, Validators.min(0), Validators.max(24)]],
       decl: ['56.78', [Validators.required, Validators.min(-90), Validators.max(90)]],
