@@ -5,11 +5,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { TelescopeListComponent } from './components/telescope-list/telescope-list.component';
+import { NightPlanComponent } from './components/night-plan/night-plan.component';
+import { CatalogsComponent } from './components/catalogs/catalogs.component';
+import { TaskViewComponent } from './components/task-view/task-view.component';
 
 import { TasksService } from './services/tasks.service';
 import { LoginService } from './services/login.service';
@@ -18,20 +34,11 @@ import { TelescopeService } from './services/telescope.service';
 
 import { MaterialModule } from '../material.module';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { TaskViewComponent } from './components/task-view/task-view.component';
 import { LongPressDirective } from './directives/long-press.directive';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { NightPlanComponent } from './components/night-plan/night-plan.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [
@@ -42,7 +49,8 @@ import { MatTableModule } from '@angular/material/table';
         TaskViewComponent,
         LongPressDirective,
         NightPlanComponent,
-        TelescopeListComponent
+        TelescopeListComponent,
+        CatalogsComponent
     ],
     bootstrap: [
         AppComponent
@@ -63,7 +71,13 @@ import { MatTableModule } from '@angular/material/table';
         MatPaginatorModule,
         MatSortModule,
         MatExpansionModule,
-        MatTableModule
+        MatTableModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatDividerModule
     ],
     providers: [
         TasksService,

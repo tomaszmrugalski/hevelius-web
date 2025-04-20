@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Md5 } from 'ts-md5/dist/md5';
 import { User } from '../models/user';
 import { Hevelius } from 'src/hevelius';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 export interface LoginResponse {
@@ -27,11 +27,18 @@ export interface LoginResponse {
     providedIn: 'root'
 })
 export class LoginService {
+    private currentUser = new BehaviorSubject<any>(null);
+    private tokenKey = 'jwt_token';
 
     constructor(
         private http: HttpClient,
         private router: Router
-    ) { }
+    ) {
+        const token = localStorage.getItem(this.tokenKey);
+        if (token) {
+            this.currentUser.next({ token });
+        }
+    }
 
     // This method is called locally when login form is filled in and submit
     // button is pressed.
@@ -53,7 +60,7 @@ export class LoginService {
                 if (data.status === true && data.token) {
                     // Login success
                     this.loggedIn(data);
-                    localStorage.setItem('jwt_token', data.token);
+                    localStorage.setItem(this.tokenKey, data.token);
                     // Store user data
                     console.log('Storing user data:', data);
                     localStorage.setItem('currentUser', JSON.stringify(data));
@@ -67,6 +74,7 @@ export class LoginService {
     loggedIn(userData) {
         // Keep the user's data in the local storage.
         localStorage.setItem('currentUser', JSON.stringify(userData));
+        this.currentUser.next(userData);
     }
 
     public getUser(): User {
@@ -79,12 +87,13 @@ export class LoginService {
 
     // This method is called when the user is logged out.
     logout() {
-        localStorage.removeItem('jwt_token');
+        localStorage.removeItem(this.tokenKey);
         localStorage.removeItem('currentUser');
+        this.currentUser.next(null);
     }
 
     getToken(): string | null {
-        return localStorage.getItem('jwt_token');
+        return localStorage.getItem(this.tokenKey);
     }
 
     isLoggedIn(): boolean {
@@ -106,5 +115,10 @@ export class LoginService {
         this.router.navigate(['/login'], {
             queryParams: { returnUrl: currentUrl }
         });
+    }
+
+    getAuthHeaders(): { [header: string]: string } {
+        const token = localStorage.getItem(this.tokenKey);
+        return token ? { Authorization: `Bearer ${token}` } : {};
     }
 }
