@@ -84,8 +84,16 @@ export class TasksService implements DataSource<Task> {
     parseTasks(data: import('../models/task-response').TaskResponse) {
         if (data && data.tasks) {
             console.log("Received %d task(s)", data.tasks.length);
-            // The tasks are already in the correct format, we can use them directly
-            this.tasks.next(data.tasks);
+            // Ensure all required fields are present in each task
+            const processedTasks = data.tasks.map(task => ({
+                ...task,
+                state: task.state || 0, // Default to Template state if not set
+                object: task.object || '',
+                ra: task.ra || 0,
+                decl: task.decl || 0,
+                exposure: task.exposure || 0
+            }));
+            this.tasks.next(processedTasks);
         }
     }
 

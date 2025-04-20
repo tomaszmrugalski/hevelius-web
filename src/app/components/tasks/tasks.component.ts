@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../../services/login.service';
 import { TasksService } from '../../services/tasks.service';
@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { TopBarService } from '../../services/top-bar.service';
 
 @Component({
   selector: 'app-tasks',
@@ -70,10 +71,20 @@ export class TasksComponent implements OnInit, OnDestroy {
     private coordFormatter: CoordsFormatterService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private topBarService: TopBarService,
+    private cdr: ChangeDetectorRef
   ) {
     this.dataSource = new TasksService(this.http, this.loginService);
     this.initFilterForm();
+  }
+
+  getStateLabel(state: number): string {
+    if (state === undefined || state === null) {
+      return 'Unknown';
+    }
+    const stateObj = this.states.find(s => s.value === state);
+    return stateObj ? stateObj.label : 'Unknown';
   }
 
   private initFilterForm() {
@@ -85,6 +96,40 @@ export class TasksComponent implements OnInit, OnDestroy {
       ra: [null],
       decl: [null],
       exposure: [null]
+    });
+  }
+
+  ngOnInit() {
+    // Set up top bar with initial title
+    this.topBarService.updateState({
+      title: 'Tasks',
+      showFilter: true,
+      filterVisible: this.isFilterVisible,
+      onFilterToggle: () => this.toggleFilters()
+    });
+
+    // Subscribe to pagination info
+    this.subscriptions.push(
+      this.dataSource.getTotalTasks().subscribe(total => {
+        this.totalTasks = total;
+        this.updateTitle();
+        this.cdr.detectChanges();
+      }),
+      this.dataSource.getCurrentPage().subscribe(page => {
+        this.currentPage = page;
+      })
+    );
+
+    // Initial load with default sorting
+    this.dataSource.loadTasks({
+      sort_by: this.currentSort.sort_by,
+      sort_order: this.currentSort.sort_order
+    });
+  }
+
+  private updateTitle() {
+    this.topBarService.updateState({
+      title: `Tasks: ${this.totalTasks} items`
     });
   }
 
@@ -114,29 +159,17 @@ export class TasksComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
-    // Subscribe to pagination info
-    this.subscriptions.push(
-      this.dataSource.getTotalTasks().subscribe(total => {
-        this.totalTasks = total;
-      }),
-      this.dataSource.getCurrentPage().subscribe(page => {
-        this.currentPage = page;
-      })
-    );
-
-    // Initial load with default sorting
-    this.dataSource.loadTasks({
-      sort_by: this.currentSort.sort_by,
-      sort_order: this.currentSort.sort_order
-    });
-  }
-
   formatRA(ra: number): string {
+    if (ra === undefined || ra === null) {
+      return '';
+    }
     return this.coordFormatter.formatRA(ra);
   }
 
   formatDec(dec: number): string {
+    if (dec === undefined || dec === null) {
+      return '';
+    }
     return this.coordFormatter.formatDec(dec);
   }
 
@@ -189,9 +222,13 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   toggleFilters() {
     this.isFilterVisible = !this.isFilterVisible;
+    this.topBarService.updateState({
+      filterVisible: this.isFilterVisible
+    });
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.topBarService.resetState();
   }
 }
