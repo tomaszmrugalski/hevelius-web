@@ -1,0 +1,107 @@
+.container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filters {
+  background: white;
+  border-radius: 4px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.filter-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.table-container {
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-task_id {
+  width: 100px;
+}
+
+.mat-column-user_id {
+  width: 120px;
+}
+
+.mat-column-state {
+  width: 100px;
+}
+
+.mat-column-object {
+  width: 150px;
+}
+
+.mat-column-ra {
+  width: 100px;
+}
+
+.mat-column-decl {
+  width: 100px;
+}
+
+.mat-column-exposure {
+  width: 100px;
+}
+
+// Animation for filter expansion
+:host {
+  display: block;
+}
+
+@keyframes expand {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: auto;
+    opacity: 1;
+  }
+}
+
+@keyframes collapse {
+  from {
+    height: auto;
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+.filters {
+  &.expanded {
+    animation: expand 0.3s ease-out forwards;
+  }
+
+  &.collapsed {
+    animation: collapse 0.3s ease-out forwards;
+  }
+}
