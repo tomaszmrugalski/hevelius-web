@@ -1,20 +1,12 @@
 <div class="container">
-  <div class="header">
-    <h1>Astronomical Objects Catalog</h1>
-    <button mat-raised-button color="primary" (click)="toggleFilters()">
-      <mat-icon>filter_list</mat-icon>
-      Filters
-    </button>
-  </div>
-
   <div class="filters" [@filterExpand]="isFilterVisible ? 'expanded' : 'collapsed'">
     <form [formGroup]="filterForm" class="filter-form">
-      <mat-form-field>
+      <mat-form-field class="filter-field">
         <mat-label>Catalog</mat-label>
         <input matInput formControlName="catalog">
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="filter-field">
         <mat-label>Object Name</mat-label>
         <input matInput formControlName="name">
       </mat-form-field>

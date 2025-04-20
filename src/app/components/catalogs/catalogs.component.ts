@@ -6,6 +6,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { TopBarService } from '../../services/top-bar.service';
 
 @Component({
   selector: 'app-catalogs',
@@ -52,7 +53,8 @@ export class CatalogsComponent implements OnInit, OnDestroy {
   constructor(
     private catalogsService: CatalogsService,
     private coordFormatter: CoordsFormatterService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private topBarService: TopBarService
   ) {
     this.initFilterForm();
   }
@@ -61,6 +63,37 @@ export class CatalogsComponent implements OnInit, OnDestroy {
     this.filterForm = this.fb.group({
       catalog: [null],
       name: [null]
+    });
+  }
+
+  ngOnInit() {
+    // Set up top bar
+    this.topBarService.updateState({
+      title: 'Catalogs',
+      showFilter: true,
+      filterVisible: this.isFilterVisible,
+      onFilterToggle: () => this.toggleFilters()
+    });
+
+    this.subscriptions.push(
+      this.catalogsService.getTotalObjects().subscribe(total => {
+        this.totalObjects = total;
+        this.updateTitle();
+      }),
+      this.catalogsService.getCurrentPage().subscribe(page => {
+        this.currentPage = page;
+      })
+    );
+
+    this.loadObjects({
+      sort_by: this.currentSort.sort_by,
+      sort_order: this.currentSort.sort_order
+    });
+  }
+
+  private updateTitle() {
+    this.topBarService.updateState({
+      title: `Catalogs: ${this.totalObjects} objects`
     });
   }
 
@@ -81,22 +114,6 @@ export class CatalogsComponent implements OnInit, OnDestroy {
 
   clearFilters() {
     this.filterForm.reset();
-    this.loadObjects({
-      sort_by: this.currentSort.sort_by,
-      sort_order: this.currentSort.sort_order
-    });
-  }
-
-  ngOnInit() {
-    this.subscriptions.push(
-      this.catalogsService.getTotalObjects().subscribe(total => {
-        this.totalObjects = total;
-      }),
-      this.catalogsService.getCurrentPage().subscribe(page => {
-        this.currentPage = page;
-      })
-    );
-
     this.loadObjects({
       sort_by: this.currentSort.sort_by,
       sort_order: this.currentSort.sort_order
@@ -144,9 +161,13 @@ export class CatalogsComponent implements OnInit, OnDestroy {
 
   toggleFilters() {
     this.isFilterVisible = !this.isFilterVisible;
+    this.topBarService.updateState({
+      filterVisible: this.isFilterVisible
+    });
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.topBarService.resetState();
   }
 }
