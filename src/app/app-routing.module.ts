@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { TasksComponent } from './components/tasks/tasks.component';
-import { AuthGuard } from './guards/auth.guard';
 import { NightPlanComponent } from './components/night-plan/night-plan.component';
 import { TelescopeListComponent } from './components/telescope-list/telescope-list.component';
+import { CatalogsComponent } from './components/catalogs/catalogs.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,9 +18,11 @@ const routes: Routes = [
       { path: 'tasks', component: TasksComponent },
       { path: 'night-plan', component: NightPlanComponent },
       { path: 'scopes', component: TelescopeListComponent },
+      { path: 'catalogs', component: CatalogsComponent },
       { path: '', redirectTo: 'tasks', pathMatch: 'full' }
     ]
-  }
+  },
+  { path: '**', redirectTo: '/tasks' }
 ];
 
 @NgModule({

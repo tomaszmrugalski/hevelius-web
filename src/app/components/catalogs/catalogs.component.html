@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="header">
+    <h1>Astronomical Objects Catalog</h1>
+    <button mat-raised-button color="primary" (click)="toggleFilters()">
+      <mat-icon>filter_list</mat-icon>
+      Filters
+    </button>
+  </div>
+
+  <div class="filters" [@filterExpand]="isFilterVisible ? 'expanded' : 'collapsed'">
+    <form [formGroup]="filterForm" class="filter-form">
+      <mat-form-field>
+        <mat-label>Catalog</mat-label>
+        <input matInput formControlName="catalog">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Object Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+
+      <div class="filter-actions">
+        <button mat-button (click)="clearFilters()">Clear</button>
+        <button mat-raised-button color="primary" (click)="applyFilters()">Apply</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="objects" matSort (matSortChange)="onSortChange($event)" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let object">{{object.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="catalog">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Catalog</th>
+        <td mat-cell *matCellDef="let object">{{object.catalog}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="ra">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>RA</th>
+        <td mat-cell *matCellDef="let object">{{formatRA(object.ra)}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="decl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dec</th>
+        <td mat-cell *matCellDef="let object">{{formatDec(object.decl)}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+        <td mat-cell *matCellDef="let object">{{object.type}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="const">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Constellation</th>
+        <td mat-cell *matCellDef="let object">{{object.const}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="magn">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Magnitude</th>
+        <td mat-cell *matCellDef="let object">{{object.magn}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator
+      [length]="totalObjects"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[50, 100, 200, 500]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+</div>

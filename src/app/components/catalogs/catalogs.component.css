@@ -1,0 +1,57 @@
+.container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filters {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.filter-form {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-name {
+  min-width: 150px;
+}
+
+.mat-column-catalog {
+  min-width: 100px;
+}
+
+.mat-column-ra,
+.mat-column-decl {
+  min-width: 120px;
+}
+
+.mat-column-type,
+.mat-column-const {
+  min-width: 100px;
+}
+
+.mat-column-magn {
+  min-width: 80px;
+}
