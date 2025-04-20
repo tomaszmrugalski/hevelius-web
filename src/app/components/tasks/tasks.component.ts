@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../../services/login.service';
 import { TasksService } from '../../services/tasks.service';
@@ -36,7 +36,7 @@ import { TopBarService } from '../../services/top-bar.service';
     ])
   ]
 })
-export class TasksComponent implements OnInit, OnDestroy {
+export class TasksComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   currentSort: {
@@ -77,6 +77,15 @@ export class TasksComponent implements OnInit, OnDestroy {
   ) {
     this.dataSource = new TasksService(this.http, this.loginService);
     this.initFilterForm();
+
+    // Set initial state for top bar in constructor
+    setTimeout(() => {
+      this.topBarService.updateState({
+        showFilter: true,
+        filterVisible: false,
+        onFilterToggle: () => this.toggleFilters()
+      });
+    });
   }
 
   getStateLabel(state: number): string {
@@ -100,20 +109,15 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Set up top bar with initial title
-    this.topBarService.updateState({
-      title: 'Tasks',
-      showFilter: true,
-      filterVisible: this.isFilterVisible,
-      onFilterToggle: () => this.toggleFilters()
-    });
 
-    // Subscribe to pagination info
+    // Subscribe to pagination info first
     this.subscriptions.push(
       this.dataSource.getTotalTasks().subscribe(total => {
-        this.totalTasks = total;
-        this.updateTitle();
-        this.cdr.detectChanges();
+        // Only update title if we have actual data (not 0)
+        if (total > 0) {
+          this.totalTasks = total;
+          this.updateTitle();
+        }
       }),
       this.dataSource.getCurrentPage().subscribe(page => {
         this.currentPage = page;
@@ -125,6 +129,9 @@ export class TasksComponent implements OnInit, OnDestroy {
       sort_by: this.currentSort.sort_by,
       sort_order: this.currentSort.sort_order
     });
+  }
+
+  ngAfterViewInit() {
   }
 
   private updateTitle() {
@@ -222,8 +229,12 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   toggleFilters() {
     this.isFilterVisible = !this.isFilterVisible;
-    this.topBarService.updateState({
-      filterVisible: this.isFilterVisible
+
+    // Use setTimeout to defer the state update
+    setTimeout(() => {
+      this.topBarService.updateState({
+        filterVisible: this.isFilterVisible
+      });
     });
   }
 

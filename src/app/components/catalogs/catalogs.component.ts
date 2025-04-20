@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CatalogsService, CatalogObject } from '../../services/catalogs.service';
 import { CoordsFormatterService } from '../../services/coords-formatter.service';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -54,9 +54,19 @@ export class CatalogsComponent implements OnInit, OnDestroy {
     private catalogsService: CatalogsService,
     private coordFormatter: CoordsFormatterService,
     private fb: FormBuilder,
-    private topBarService: TopBarService
+    private topBarService: TopBarService,
+    private cdr: ChangeDetectorRef
   ) {
     this.initFilterForm();
+
+    // Set initial state for top bar in constructor
+    setTimeout(() => {
+      this.topBarService.updateState({
+        showFilter: true,
+        filterVisible: this.isFilterVisible,
+        onFilterToggle: () => this.toggleFilters()
+      });
+    });
   }
 
   private initFilterForm() {
@@ -67,18 +77,13 @@ export class CatalogsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Set up top bar
-    this.topBarService.updateState({
-      title: 'Catalogs',
-      showFilter: true,
-      filterVisible: this.isFilterVisible,
-      onFilterToggle: () => this.toggleFilters()
-    });
-
     this.subscriptions.push(
       this.catalogsService.getTotalObjects().subscribe(total => {
-        this.totalObjects = total;
-        this.updateTitle();
+        // Only update title if we have actual data (not 0)
+        if (total > 0) {
+          this.totalObjects = total;
+          this.updateTitle();
+        }
       }),
       this.catalogsService.getCurrentPage().subscribe(page => {
         this.currentPage = page;
