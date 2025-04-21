@@ -62,7 +62,6 @@ export class LoginService {
                     this.loggedIn(data);
                     localStorage.setItem(this.tokenKey, data.token);
                     // Store user data
-                    console.log('Storing user data:', data);
                     localStorage.setItem('currentUser', JSON.stringify(data));
                 }
                 return data;
