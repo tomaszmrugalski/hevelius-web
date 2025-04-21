@@ -8,6 +8,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TopBarService } from '../../services/top-bar.service';
 
+interface LoadObjectsParams {
+  sort_by?: string;
+  sort_order?: 'asc' | 'desc';
+  catalog?: string;
+  name?: string;
+}
+
 @Component({
   selector: 'app-catalogs',
   templateUrl: './catalogs.component.html',
@@ -125,7 +132,7 @@ export class CatalogsComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadObjects(params: any = {}) {
+  loadObjects(params: LoadObjectsParams = {}) {
     this.catalogsService.listObjects({
       page: this.currentPage,
       per_page: this.pageSize,

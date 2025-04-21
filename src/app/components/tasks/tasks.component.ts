@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from '../../services/login.service';
 import { TasksService } from '../../services/tasks.service';
@@ -36,7 +36,7 @@ import { TopBarService } from '../../services/top-bar.service';
     ])
   ]
 })
-export class TasksComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TasksComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   currentSort: {
@@ -129,9 +129,6 @@ export class TasksComponent implements OnInit, OnDestroy, AfterViewInit {
       sort_by: this.currentSort.sort_by,
       sort_order: this.currentSort.sort_order
     });
-  }
-
-  ngAfterViewInit() {
   }
 
   private updateTitle() {
