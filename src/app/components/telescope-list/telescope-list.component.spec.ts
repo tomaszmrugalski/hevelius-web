@@ -92,16 +92,12 @@ describe('TelescopeListComponent', () => {
     // Update view
     fixture.detectChanges();
 
-    // Debug: Log the component's HTML
-    console.log('Component HTML:', fixture.nativeElement.innerHTML);
-
     // Find the table
     const table = fixture.nativeElement.querySelector('table.mat-mdc-table');
     expect(table).toBeTruthy('Table should be present');
 
     // Find the rows using MDC class names
     const tableRows = fixture.nativeElement.querySelectorAll('tr.mat-mdc-row');
-    console.log('Found rows:', tableRows.length);
 
     // Verify row count
     expect(tableRows.length).toBe(2, 'Should have 2 data rows');
@@ -109,7 +105,6 @@ describe('TelescopeListComponent', () => {
     // Only proceed with cell checks if we found the rows
     if (tableRows.length > 0) {
       const firstRowCells = tableRows[0].querySelectorAll('td.mat-mdc-cell');
-      console.log('First row cells:', firstRowCells.length);
 
       expect(firstRowCells[0].textContent.trim()).toBe('Test Telescope 1');
       expect(firstRowCells[1].textContent.trim()).toBe('Test Description 1');

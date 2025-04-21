@@ -59,31 +59,9 @@ export class TasksService implements DataSource<Task> {
         this.tasks.complete();
     }
 
-    // public loadTasks() {
-    //     this.loadTasksReal({ limit: 30 });
-    //     //this.loadTasksFake();
-    // }
-
-    private loadTasksFake() {
-        console.log('TaskService - loadTasks (faking one task)');
-        /* const t = [{
-            task_id: 1,
-			user_id: 1,
-			aavso_id: 'MTOA',
-            object: 'Horsehead',
-            ra: 12.3456,
-            decl: 56.789,
-            exposure: 150,
-            state: 6
-        }];
-
-        this.tasks.next(t); */
-    }
-
     // This method is called when data is returned by backend
     parseTasks(data: import('../models/task-response').TaskResponse) {
         if (data && data.tasks) {
-            console.log("Received %d task(s)", data.tasks.length);
             // Ensure all required fields are present in each task
             const processedTasks = data.tasks.map(task => ({
                 ...task,
@@ -107,7 +85,6 @@ export class TasksService implements DataSource<Task> {
 
         const user = this.login.getUser();
         if (user == null) {
-            console.log('WARNING: Attempt to load tasks failed, no user logged in.');
             return;
         }
         params.user_id = user.user_id;
@@ -119,7 +96,6 @@ export class TasksService implements DataSource<Task> {
         this.http.post<import('../models/task-response').TaskResponse>(Hevelius.apiUrl + '/tasks', params)
             .subscribe({
                 next: (data) => {
-                    // console.log("Received list of tasks, parsing data");
                     this.parseTasks(data);
                 },
                 error: (error) => {
@@ -136,7 +112,6 @@ export class TasksService implements DataSource<Task> {
 
         const user = this.login.getUser();
         if (!user) {
-            console.log('WARNING: Attempt to load tasks failed, no user logged in.');
             return;
         }
 
