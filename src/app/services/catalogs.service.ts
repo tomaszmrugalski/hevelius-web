@@ -90,6 +90,7 @@ export class CatalogsService {
     return this.currentPage.asObservable();
   }
 
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   private sanitizeParams(params: any): any {
     const sanitized: any = {};
     Object.keys(params).forEach(key => {
