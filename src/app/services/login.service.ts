@@ -23,11 +23,17 @@ export interface LoginResponse {
     msg?: string;
 }
 
+interface CurrentUser {
+    token?: string;
+    user_id?: number;
+    username?: string;
+}
+
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
-    private currentUser = new BehaviorSubject<any>(null);
+    private currentUser = new BehaviorSubject<CurrentUser | null>(null);
     private tokenKey = 'jwt_token';
 
     constructor(
