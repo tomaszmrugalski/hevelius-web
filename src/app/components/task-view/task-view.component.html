@@ -14,7 +14,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Object</mat-label>
-        <input matInput #objectInput formControlName="object" (input)="onObjectSearch($event.target.value)">
+        <input matInput #objectInput formControlName="object" (ngModelChange)="onObjectSearch($event)">
       </mat-form-field>
 
       <mat-form-field>
