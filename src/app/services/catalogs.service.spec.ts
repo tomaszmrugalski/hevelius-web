@@ -7,7 +7,6 @@ import { Hevelius } from 'src/hevelius';
 describe('CatalogsService', () => {
   let service: CatalogsService;
   let httpMock: HttpTestingController;
-  let loginService: jasmine.SpyObj<LoginService>;
 
   beforeEach(() => {
     const loginServiceSpy = jasmine.createSpyObj('LoginService', ['getAuthHeaders']);
@@ -23,7 +22,6 @@ describe('CatalogsService', () => {
 
     service = TestBed.inject(CatalogsService);
     httpMock = TestBed.inject(HttpTestingController);
-    loginService = TestBed.inject(LoginService) as jasmine.SpyObj<LoginService>;
   });
 
   afterEach(() => {

@@ -21,6 +21,8 @@ describe('TaskViewComponent', () => {
   let component: TaskViewComponent;
   let fixture: ComponentFixture<TaskViewComponent>;
   let catalogsService: jasmine.SpyObj<CatalogsService>;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let telescopeSubject: BehaviorSubject<any[]>;
 
   const mockCatalogObject = {
