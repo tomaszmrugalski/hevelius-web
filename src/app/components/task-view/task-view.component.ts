@@ -79,9 +79,13 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
         // If we're in add mode and have active telescopes, set the default value
         if (this.mode === 'add' && this.telescopes.length > 0) {
-          this.taskForm.patchValue({
-            scope_id: this.telescopes[0].scope_id
-          });
+
+          // The taskForm is not initialized in some tests, so we need to check for it
+          if (this.taskForm) {
+            this.taskForm.patchValue({
+              scope_id: this.telescopes[0].scope_id
+            });
+          }
         }
       },
       error: (error) => {
