@@ -58,7 +58,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.setupSearch();
 
     if (this.mode === 'edit' && this.originalTask) {
-      // Convert date strings to Date objects for the form
       const taskData = {
         ...this.originalTask,
         skip_before: this.originalTask.skip_before ? new Date(this.originalTask.skip_before) : null,
@@ -126,12 +125,11 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap(query => {
-        if (query.length >= 3) {
+        if (query && query.length >= 3) {
           return this.catalogsService.searchObjects(query);
-        } else {
-          this.closeOverlay();
-          return [];
         }
+        this.closeOverlay();
+        return [];
       })
     ).subscribe({
       next: (results) => {
@@ -171,20 +169,19 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       });
 
       this.overlayRef.backdropClick().subscribe(() => this.closeOverlay());
-
-      const searchResultsPortal = new ComponentPortal(SearchResultsComponent);
-      const componentRef = this.overlayRef.attach(searchResultsPortal);
-      componentRef.instance.results = this.searchResults;
-      componentRef.instance.selected.subscribe((result: CatalogObject) => {
-        this.selectObject(result);
-      });
-    } else {
-      const componentRef = this.overlayRef.hasAttached() ?
-        this.overlayRef.detach() : null;
-      if (componentRef) {
-        componentRef.instance.results = this.searchResults;
-      }
     }
+
+    // Always create a new component instance with updated results
+    if (this.overlayRef.hasAttached()) {
+      this.overlayRef.detach();
+    }
+
+    const searchResultsPortal = new ComponentPortal(SearchResultsComponent);
+    const componentRef = this.overlayRef.attach(searchResultsPortal);
+    componentRef.instance.results = this.searchResults;
+    componentRef.instance.selected.subscribe((result: CatalogObject) => {
+      this.selectObject(result);
+    });
   }
 
   private closeOverlay() {
@@ -195,7 +192,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   onObjectSearch(query: string) {
-    this.searchSubject.next(query);
+    this.searchSubject.next(query || '');
   }
 
   selectObject(object: CatalogObject) {
