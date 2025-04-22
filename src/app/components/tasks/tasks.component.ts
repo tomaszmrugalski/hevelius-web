@@ -178,6 +178,8 @@ export class TasksComponent implements OnInit, OnDestroy {
     return this.coordFormatter.formatDec(dec);
   }
 
+  // This is used to open the task view dialog when the user long presses on a task
+  // It's also called when the user double clicks on a task
   onTaskLongPress(task: Task) {
     const user = this.loginService.getUser();
     if (!user || user.user_id !== task.user_id) {

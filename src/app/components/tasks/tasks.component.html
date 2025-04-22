@@ -85,7 +85,10 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (longPress)="onTaskLongPress(row)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          appLongPress
+          (longPress)="onTaskLongPress(row)"
+          (dblclick)="onTaskLongPress(row)"></tr>
     </table>
 
     <mat-paginator
