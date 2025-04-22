@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Optional } from '@angular/core';
+import { Component, OnInit, Inject, Optional, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,6 +7,12 @@ import { LoginService } from '../../services/login.service';
 import { Task } from '../../models/task';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TelescopeService, Telescope } from '../../services/telescope.service';
+import { CatalogsService, CatalogObject } from '../../services/catalogs.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { SearchResultsComponent } from './search-results.component';
 
 interface DialogData {
   task?: Task;
@@ -18,19 +24,26 @@ interface DialogData {
   templateUrl: './task-view.component.html',
   styleUrls: ['./task-view.component.css']
 })
-export class TaskViewComponent implements OnInit {
+export class TaskViewComponent implements OnInit, OnDestroy {
+  @ViewChild('objectInput') objectInput: ElementRef;
+
   taskForm: FormGroup;
   mode: 'add' | 'edit' = 'add';
   originalTask?: Task;
   telescopes: Telescope[] = [];
+  searchResults: CatalogObject[] = [];
+  private searchSubject = new Subject<string>();
+  private overlayRef: OverlayRef | null = null;
 
   constructor(
     private fb: FormBuilder,
     private taskService: TaskService,
     private loginService: LoginService,
     private telescopeService: TelescopeService,
+    private catalogsService: CatalogsService,
     private dialogRef: MatDialogRef<TaskViewComponent>,
     private snackBar: MatSnackBar,
+    private overlay: Overlay,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogData | null
   ) {
     if (data) {
@@ -42,6 +55,7 @@ export class TaskViewComponent implements OnInit {
   ngOnInit() {
     this.loadTelescopes();
     this.initializeForm();
+    this.setupSearch();
 
     if (this.mode === 'edit' && this.originalTask) {
       // Convert date strings to Date objects for the form
@@ -52,6 +66,10 @@ export class TaskViewComponent implements OnInit {
       };
       this.taskForm.patchValue(taskData);
     }
+  }
+
+  ngOnDestroy() {
+    this.closeOverlay();
   }
 
   private loadTelescopes() {
@@ -101,6 +119,92 @@ export class TaskViewComponent implements OnInit {
       max_moon_phase: [100],
       max_sun_alt: [-12]
     });
+  }
+
+  private setupSearch() {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(query => {
+        if (query.length >= 3) {
+          return this.catalogsService.searchObjects(query);
+        } else {
+          this.closeOverlay();
+          return [];
+        }
+      })
+    ).subscribe({
+      next: (results) => {
+        this.searchResults = results;
+        if (results.length > 0) {
+          this.showSearchResults();
+        } else {
+          this.closeOverlay();
+        }
+      },
+      error: (error) => {
+        console.error('Error searching objects:', error);
+        this.searchResults = [];
+        this.closeOverlay();
+      }
+    });
+  }
+
+  private showSearchResults() {
+    if (!this.overlayRef) {
+      const positionStrategy = this.overlay.position()
+        .flexibleConnectedTo(this.objectInput)
+        .withPositions([{
+          originX: 'start',
+          originY: 'bottom',
+          overlayX: 'start',
+          overlayY: 'top',
+          offsetY: 8
+        }]);
+
+      this.overlayRef = this.overlay.create({
+        positionStrategy,
+        scrollStrategy: this.overlay.scrollStrategies.reposition(),
+        width: this.objectInput.nativeElement.offsetWidth,
+        hasBackdrop: true,
+        backdropClass: 'cdk-overlay-transparent-backdrop',
+      });
+
+      this.overlayRef.backdropClick().subscribe(() => this.closeOverlay());
+
+      const searchResultsPortal = new ComponentPortal(SearchResultsComponent);
+      const componentRef = this.overlayRef.attach(searchResultsPortal);
+      componentRef.instance.results = this.searchResults;
+      componentRef.instance.selected.subscribe((result: CatalogObject) => {
+        this.selectObject(result);
+      });
+    } else {
+      const componentRef = this.overlayRef.hasAttached() ?
+        this.overlayRef.detach() : null;
+      if (componentRef) {
+        componentRef.instance.results = this.searchResults;
+      }
+    }
+  }
+
+  private closeOverlay() {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
+    }
+  }
+
+  onObjectSearch(query: string) {
+    this.searchSubject.next(query);
+  }
+
+  selectObject(object: CatalogObject) {
+    this.taskForm.patchValue({
+      object: object.name,
+      ra: object.ra,
+      decl: object.decl
+    });
+    this.closeOverlay();
   }
 
   onSubmit() {
