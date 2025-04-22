@@ -1,13 +1,16 @@
 # Hevelius Web Interface Changelog
 
-0.3.0 (unreleased)
+0.3.0 (2025-04-22)
 
  - Pagination for tasks added
  - Sorting for tasks added
  - Filtering for tasks added
  - Telescopes list added
+ - Catalogs (currently NGC,IC,Messier,Caldwell) added
  - When adding or editing tasks, it's now possible to select a scope
    from the list
+ - When adding or editing tasks, the target object can be selected
+   from the catalogs. Just type at least 3 chars.
 
 0.2.0 (2025-04-13)
 

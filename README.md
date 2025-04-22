@@ -16,12 +16,14 @@ The software is implemented in Angular and Typescript.
 
 ## Status
 
-As of March 2025, the following features are available:
+As of April 2025, the following features are available:
 
 - Login
 - List of tasks
 - Adding new tasks
 - Editing tasks (long press a task)
+- List of telescopes
+- Catalogs (NGC,IC,Messier,Caldwell)
 
 The interface is responsive and should work on any device. It was tested on desktop (Ubuntu 24, Windows), and mobile (iPhone 14 Pro).
 
