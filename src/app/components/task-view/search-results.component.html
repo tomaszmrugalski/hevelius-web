@@ -1,0 +1,12 @@
+<div class="search-results-container" role="listbox">
+    <div
+      *ngFor="let result of results"
+      class="search-result-item"
+      role="option"
+      tabindex="0"
+      (click)="onSelect(result)"
+      (keydown.enter)="onSelect(result)"
+      (keydown.space)="onSelect(result); $event.preventDefault()">
+      {{result.name}} ({{result.catalog}}) - RA: {{result.ra}}, Dec: {{result.decl}}
+    </div>
+  </div>
