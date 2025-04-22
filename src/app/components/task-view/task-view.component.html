@@ -12,9 +12,9 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Object Name</mat-label>
-        <input matInput formControlName="object">
+      <mat-form-field appearance="outline">
+        <mat-label>Object</mat-label>
+        <input matInput #objectInput formControlName="object" (input)="onObjectSearch($event.target.value)">
       </mat-form-field>
 
       <mat-form-field>
