@@ -4,6 +4,7 @@
       class="search-result-item"
       role="option"
       tabindex="0"
+      [attr.aria-selected]="false"
       (click)="onSelect(result)"
       (keydown.enter)="onSelect(result)"
       (keydown.space)="onSelect(result); $event.preventDefault()">
