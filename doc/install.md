@@ -1,6 +1,6 @@
 # Installation
 
-You need nodejs. The code is using Angular 17, so the oldest nodejs supported is 16.x. You can install it
+You need nodejs. The code is using Angular 18, so the oldest nodejs supported is 16.x. You can install it
 whatever way works for you. A simple installation is:
 
 ```curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -```
@@ -10,49 +10,19 @@ run with `ng serve`. Navigate to `http://localhost:4200/`. The app will automati
 of the source files. `ng` is a command line tool from angular. If it's missing, use the following
 trick: `export PATH=$PATH:./node_modules/.bin`.
 
-# Troubleshooting
+# Deployment
 
-Experienced `error:03000086:digital envelope routines::initialization error`.
-This was worked around with `export NODE_OPTIONS=--openssl-legacy-provider`.
-This was fixed by migration to a more modern Angular.
+You need to have hevelius backend running. See https://github.com/tomaszmrugalski/hevelius-backend for details.
 
-## Angular upgrade
+Edit `src/hevelius.ts` to point to your running backend, e.g.
 
-Upgrading one specific package: npm install @angular/material@^9.0.0
+```typescript
+    // Make sure there is no trailing slash
+    static apiUrl = 'https://hevelius.borowka.space:5001/api';
+```
 
-^ - means major version must much, minor and patch can be updated.
+Then make `ng build`.
 
-If dependencies are missing (e.g. after git clean -fxd), install them: `npm
-install`. When trying to run ancient Angular 7, I had to upgrade to the latest
-versions in 7 first: `npm install --force @angular/cdk@~7.3.7
-@angular/material@7.3.7`.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-## TODO
-
-- remove unused modules from material.modules.ts (see
-  https://stackoverflow.com/questions/58594311/angular-material-index-d-ts-is-not-a-module
-  for context)
+The copy over `dist/hevelius/browser/*` to your running server. You might want to
+see [example NGINX config](nginx-deploy.md) for some tips how to deploy on NGINX.
+This is just an example. The app should work on any other web server.
