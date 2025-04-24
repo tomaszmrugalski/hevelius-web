@@ -30,4 +30,6 @@ The interface is responsive and should work on any device. It was tested on desk
 ## Documentation
 
 - [Installation](doc/install.md)
+- [Example NGINX deployment](doc/nginx-deploy.md)
 - [Developer's Guide](doc/devel.md)
+  - [Queries](doc/queries.md)
