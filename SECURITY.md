@@ -2,13 +2,15 @@
 
 ## Supported Versions
 
-This project is in a very early stage of development. You must be crazy
-if you're running it.
+This project is in a early stage of development. There's no concept of stable releases.
+Only the latest release and git versions are "supported".
 
 | Version | Supported          |
 | ------- | ------------------ |
 | git     | :white_check_mark: |
-| 0.0.4   | :x:                |
+| 0.3.0   | :white_check_mark: |
+| 0.2.0   | :x:                |
+| 0.1.0   | :x:                |
 
 ## Reporting a Vulnerability
 
