@@ -16,26 +16,27 @@ import { TopBarService } from '../../services/top-bar.service';
 
 
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.css'],
-  animations: [
-    trigger('filterExpand', [
-      state('collapsed', style({
-        height: '0px',
-        minHeight: '0',
-        padding: '0',
-        opacity: '0'
-      })),
-      state('expanded', style({
-        height: '*',
-        padding: '1rem'
-      })),
-      transition('expanded <=> collapsed', [
-        animate('200ms ease-in-out')
-      ])
-    ])
-  ]
+    selector: 'app-tasks',
+    templateUrl: './tasks.component.html',
+    styleUrls: ['./tasks.component.css'],
+    animations: [
+        trigger('filterExpand', [
+            state('collapsed', style({
+                height: '0px',
+                minHeight: '0',
+                padding: '0',
+                opacity: '0'
+            })),
+            state('expanded', style({
+                height: '*',
+                padding: '1rem'
+            })),
+            transition('expanded <=> collapsed', [
+                animate('200ms ease-in-out')
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class TasksComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;

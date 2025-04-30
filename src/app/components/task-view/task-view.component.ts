@@ -20,9 +20,10 @@ interface DialogData {
 }
 
 @Component({
-  selector: 'app-task-view',
-  templateUrl: './task-view.component.html',
-  styleUrls: ['./task-view.component.css']
+    selector: 'app-task-view',
+    templateUrl: './task-view.component.html',
+    styleUrls: ['./task-view.component.css'],
+    standalone: false
 })
 export class TaskViewComponent implements OnInit, OnDestroy {
   @ViewChild('objectInput') objectInput: ElementRef;

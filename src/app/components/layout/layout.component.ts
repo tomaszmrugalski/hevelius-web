@@ -8,9 +8,10 @@ import { Subscription } from 'rxjs';
 import { TopBarService } from '../../services/top-bar.service';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+    selector: 'app-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.css'],
+    standalone: false
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   title = 'Hevelius';
