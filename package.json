@@ -42,7 +42,7 @@
     "@types/node": "~10.12.18",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",
-    "eslint": "^9.19.0",
+    "eslint": "^9.25.1",
     "hammerjs": "^2.0.8",
     "jasmine-core": "^5.1.1",
     "jasmine-spec-reporter": "~5.0.0",
