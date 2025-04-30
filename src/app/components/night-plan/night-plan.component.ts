@@ -5,7 +5,8 @@ import { CoordsFormatterService } from '../../services/coords-formatter.service'
 @Component({
     selector: 'app-night-plan',
     templateUrl: './night-plan.component.html',
-    styleUrls: ['./night-plan.component.css']
+    styleUrls: ['./night-plan.component.css'],
+    standalone: false
 })
 export class NightPlanComponent implements OnInit {
     dataSource: NightPlanService;
