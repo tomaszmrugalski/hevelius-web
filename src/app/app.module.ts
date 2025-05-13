@@ -21,11 +21,10 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { TasksComponent } from './components/tasks/tasks.component';
-import { TelescopeListComponent } from './components/telescope-list/telescope-list.component';
-import { NightPlanComponent } from './components/night-plan/night-plan.component';
-import { CatalogsComponent } from './components/catalogs/catalogs.component';
 import { TaskViewComponent } from './components/task-view/task-view.component';
+import { NightPlanComponent } from './components/night-plan/night-plan.component';
+import { TelescopeListComponent } from './components/telescope-list/telescope-list.component';
+import { CatalogsComponent } from './components/catalogs/catalogs.component';
 
 import { TasksService } from './services/tasks.service';
 import { LoginService } from './services/login.service';
@@ -37,7 +36,6 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { LongPressDirective } from './directives/long-press.directive';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
@@ -45,9 +43,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         AppComponent,
         LoginComponent,
         LayoutComponent,
-        TasksComponent,
         TaskViewComponent,
-        LongPressDirective,
         NightPlanComponent,
         TelescopeListComponent,
         CatalogsComponent
