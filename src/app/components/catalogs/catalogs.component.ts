@@ -16,26 +16,27 @@ interface LoadObjectsParams {
 }
 
 @Component({
-  selector: 'app-catalogs',
-  templateUrl: './catalogs.component.html',
-  styleUrls: ['./catalogs.component.css'],
-  animations: [
-    trigger('filterExpand', [
-      state('collapsed', style({
-        height: '0px',
-        minHeight: '0',
-        padding: '0',
-        opacity: '0'
-      })),
-      state('expanded', style({
-        height: '*',
-        padding: '1rem'
-      })),
-      transition('expanded <=> collapsed', [
-        animate('200ms ease-in-out')
-      ])
-    ])
-  ]
+    selector: 'app-catalogs',
+    templateUrl: './catalogs.component.html',
+    styleUrls: ['./catalogs.component.css'],
+    animations: [
+        trigger('filterExpand', [
+            state('collapsed', style({
+                height: '0px',
+                minHeight: '0',
+                padding: '0',
+                opacity: '0'
+            })),
+            state('expanded', style({
+                height: '*',
+                padding: '1rem'
+            })),
+            transition('expanded <=> collapsed', [
+                animate('200ms ease-in-out')
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class CatalogsComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;

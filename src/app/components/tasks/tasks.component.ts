@@ -10,32 +10,59 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { MatSort, Sort } from '@angular/material/sort';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TopBarService } from '../../services/top-bar.service';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { LongPressDirective } from '../../directives/long-press.directive';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.css'],
-  animations: [
-    trigger('filterExpand', [
-      state('collapsed', style({
-        height: '0px',
-        minHeight: '0',
-        padding: '0',
-        opacity: '0'
-      })),
-      state('expanded', style({
-        height: '*',
-        padding: '1rem'
-      })),
-      transition('expanded <=> collapsed', [
-        animate('200ms ease-in-out')
-      ])
-    ])
-  ]
+    selector: 'app-tasks',
+    templateUrl: './tasks.component.html',
+    styleUrls: ['./tasks.component.css'],
+    animations: [
+        trigger('filterExpand', [
+            state('collapsed', style({
+                height: '0px',
+                minHeight: '0',
+                padding: '0',
+                opacity: '0'
+            })),
+            state('expanded', style({
+                height: '*',
+                padding: '1rem'
+            })),
+            transition('expanded <=> collapsed', [
+                animate('200ms ease-in-out')
+            ])
+        ])
+    ],
+    standalone: true,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDialogModule,
+        MatSnackBarModule,
+        MatSelectModule,
+        LongPressDirective
+    ]
 })
 export class TasksComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;

@@ -3,9 +3,10 @@ import { TelescopeService, Telescope } from '../../services/telescope.service';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-telescope-list',
-  templateUrl: './telescope-list.component.html',
-  styleUrls: ['./telescope-list.component.css']
+    selector: 'app-telescope-list',
+    templateUrl: './telescope-list.component.html',
+    styleUrls: ['./telescope-list.component.css'],
+    standalone: false
 })
 export class TelescopeListComponent implements OnInit {
   dataSource = new MatTableDataSource<Telescope>();

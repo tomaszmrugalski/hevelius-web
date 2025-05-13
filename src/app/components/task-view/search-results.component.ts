@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { CatalogObject } from '../../services/catalogs.service';
 
 @Component({
-  selector: 'app-search-results',
-  templateUrl: './search-results.component.html',
-  styleUrls: ['./search-results.component.css'],
-  standalone: true,
-  imports: [CommonModule]
+    selector: 'app-search-results',
+    templateUrl: './search-results.component.html',
+    styleUrls: ['./search-results.component.css'],
+    imports: [CommonModule]
 })
 export class SearchResultsComponent {
   @Input() results: CatalogObject[] = [];
