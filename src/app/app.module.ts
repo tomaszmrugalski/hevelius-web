@@ -21,7 +21,6 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import { LayoutComponent } from './components/layout/layout.component';
 import { TaskViewComponent } from './components/task-view/task-view.component';
-import { TelescopeListComponent } from './components/telescope-list/telescope-list.component';
 import { CatalogsComponent } from './components/catalogs/catalogs.component';
 
 import { TasksService } from './services/tasks.service';
@@ -41,7 +40,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
         AppComponent,
         LayoutComponent,
         TaskViewComponent,
-        TelescopeListComponent,
         CatalogsComponent
     ],
     bootstrap: [

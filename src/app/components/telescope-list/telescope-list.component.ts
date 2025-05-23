@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { TelescopeService, Telescope } from '../../services/telescope.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-telescope-list',
     templateUrl: './telescope-list.component.html',
     styleUrls: ['./telescope-list.component.css'],
-    standalone: false
+    imports: [
+        CommonModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatIconModule
+    ]
 })
 export class TelescopeListComponent implements OnInit {
   dataSource = new MatTableDataSource<Telescope>();
