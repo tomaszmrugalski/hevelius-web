@@ -19,7 +19,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { TaskViewComponent } from './components/task-view/task-view.component';
 import { NightPlanComponent } from './components/night-plan/night-plan.component';
@@ -41,7 +40,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
     declarations: [
         AppComponent,
-        LoginComponent,
         LayoutComponent,
         TaskViewComponent,
         NightPlanComponent,
