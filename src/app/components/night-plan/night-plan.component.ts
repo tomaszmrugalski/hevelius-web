@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { NightPlanService } from '../../services/night-plan.service';
 import { CoordsFormatterService } from '../../services/coords-formatter.service';
+import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-night-plan',
     templateUrl: './night-plan.component.html',
     styleUrls: ['./night-plan.component.css'],
-    standalone: false
+    standalone: true,
+    imports: [
+        CommonModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule
+    ]
 })
 export class NightPlanComponent implements OnInit {
     dataSource: NightPlanService;
