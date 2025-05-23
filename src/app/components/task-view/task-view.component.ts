@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Optional, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskService, TaskRequest } from '../../services/task.service';
@@ -13,6 +13,13 @@ import { Subject } from 'rxjs';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { SearchResultsComponent } from './search-results.component';
+import { CommonModule } from '@angular/common';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 interface DialogData {
   task?: Task;
@@ -23,7 +30,17 @@ interface DialogData {
     selector: 'app-task-view',
     templateUrl: './task-view.component.html',
     styleUrls: ['./task-view.component.css'],
-    standalone: false
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCheckboxModule,
+    ]
 })
 export class TaskViewComponent implements OnInit, OnDestroy {
   @ViewChild('objectInput') objectInput: ElementRef;
