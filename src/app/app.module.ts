@@ -20,7 +20,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { LayoutComponent } from './components/layout/layout.component';
-import { CatalogsComponent } from './components/catalogs/catalogs.component';
 
 import { TasksService } from './services/tasks.service';
 import { LoginService } from './services/login.service';
@@ -37,8 +36,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
     declarations: [
         AppComponent,
-        LayoutComponent,
-        CatalogsComponent
+        LayoutComponent
     ],
     bootstrap: [
         AppComponent

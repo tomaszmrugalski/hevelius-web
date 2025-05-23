@@ -1,12 +1,19 @@
 import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CatalogsService, CatalogObject } from '../../services/catalogs.service';
 import { CoordsFormatterService } from '../../services/coords-formatter.service';
-import { MatSort, Sort } from '@angular/material/sort';
-import { PageEvent } from '@angular/material/paginator';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TopBarService } from '../../services/top-bar.service';
+import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 interface LoadObjectsParams {
   sort_by?: string;
@@ -36,7 +43,19 @@ interface LoadObjectsParams {
             ])
         ])
     ],
-    standalone: false
+    imports: [
+        CommonModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatCheckboxModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class CatalogsComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
