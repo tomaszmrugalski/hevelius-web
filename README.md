@@ -16,7 +16,7 @@ The software is implemented in Angular and Typescript.
 
 ## Status
 
-As of April 2025, the following features are available:
+As of May 2025, the following features are available:
 
 - Login
 - List of tasks
