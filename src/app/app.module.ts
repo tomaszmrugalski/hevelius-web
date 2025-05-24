@@ -19,8 +19,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { LayoutComponent } from './components/layout/layout.component';
-
 import { TasksService } from './services/tasks.service';
 import { LoginService } from './services/login.service';
 import { CoordsFormatterService } from './services/coords-formatter.service';
