@@ -13,12 +13,12 @@ describe('TasksComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TasksComponent],
       imports: [
         MatTableModule,
         MatDialogModule,
         MatSnackBarModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        TasksComponent
       ],
       providers: [
         provideHttpClient(),

@@ -55,12 +55,12 @@ describe('TelescopeListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TelescopeListComponent],
       imports: [
         HttpClientTestingModule,
         MatTableModule,
         MatIconModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        TelescopeListComponent
       ],
       providers: [TelescopeService]
     }).compileComponents();

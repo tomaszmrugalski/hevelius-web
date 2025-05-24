@@ -33,7 +33,6 @@ describe('LoginComponent', () => {
     router = jasmine.createSpyObj('Router', ['navigateByUrl']);
 
     TestBed.configureTestingModule({
-      declarations: [LoginComponent],
       imports: [
         MatToolbarModule,
         ReactiveFormsModule,
@@ -42,7 +41,8 @@ describe('LoginComponent', () => {
         MatIconModule,
         MatCardModule,
         MatTableModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        LoginComponent
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
@@ -57,10 +57,10 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create the app component', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
@@ -83,7 +83,7 @@ describe('LoginComponent', () => {
     loginService.getBackendVersion.and.returnValue(of('1.2.3'));
 
     // Act
-    component.ngOnInit();
+    fixture.detectChanges(); // This triggers ngOnInit
     tick(); // Wait for async operations
 
     // Assert
@@ -97,8 +97,8 @@ describe('LoginComponent', () => {
     loginService.getBackendVersion.and.returnValue(throwError(() => error));
 
     // Act
-    component.ngOnInit();
-    tick();
+    fixture.detectChanges(); // This triggers ngOnInit
+    tick(); // Wait for async operations
 
     // Assert
     expect(loginService.getBackendVersion).toHaveBeenCalled();

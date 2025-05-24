@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-// import { RouterTestingModule } from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NightPlanService } from '../../services/night-plan.service';
 import { provideHttpClient } from '@angular/common/http';
@@ -28,13 +28,14 @@ describe('LayoutComponent', () => {
     nightPlanService.getTaskCount.and.returnValue(new BehaviorSubject(0));
 
     await TestBed.configureTestingModule({
-      declarations: [LayoutComponent],
       imports: [
+        RouterTestingModule,
         MatMenuModule,
         MatIconModule,
         MatToolbarModule,
         MatDialogModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        LayoutComponent
       ],
       providers: [
         { provide: NightPlanService, useValue: nightPlanService },
