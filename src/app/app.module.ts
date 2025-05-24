@@ -35,8 +35,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        LayoutComponent
+        AppComponent
     ],
     bootstrap: [
         AppComponent

@@ -1,17 +1,39 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskViewComponent } from '../task-view/task-view.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NightPlanService } from '../../services/night-plan.service';
 import { LoginService } from '../../services/login.service';
 import { Subscription } from 'rxjs';
 import { TopBarService } from '../../services/top-bar.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenu } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.css'],
-    standalone: false
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule,
+        MatMenuModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatListModule,
+        MatSidenavModule,
+        MatTooltipModule
+    ]
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   title = 'Hevelius';
