@@ -8,7 +8,7 @@ import { TelescopeListComponent } from './components/telescope-list/telescope-li
 import { CatalogsComponent } from './components/catalogs/catalogs.component';
 import { AuthGuard } from './guards/auth.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: '',

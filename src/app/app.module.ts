@@ -32,12 +32,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    bootstrap: [
-        AppComponent
-    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -60,7 +54,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatInputModule,
         MatButtonModule,
         MatToolbarModule,
-        MatDividerModule
+        MatDividerModule,
+        AppComponent
     ],
     providers: [
         TasksService,
