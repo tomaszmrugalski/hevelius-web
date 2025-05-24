@@ -56,8 +56,8 @@ describe('TaskViewComponent', () => {
     catalogsServiceSpy.searchObjects.and.returnValue(of([mockCatalogObject]));
 
     TestBed.configureTestingModule({
-      declarations: [TaskViewComponent],
       imports: [
+        TaskViewComponent,
         ReactiveFormsModule,
         NoopAnimationsModule,
         MatFormFieldModule,

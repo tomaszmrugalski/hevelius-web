@@ -18,8 +18,9 @@ describe('NightPlanComponent', () => {
     nightPlanService.connect.and.returnValue(tasksSubject.asObservable());
 
     await TestBed.configureTestingModule({
-      declarations: [ NightPlanComponent ],
-      imports: [ MatTableModule ],
+      imports: [ MatTableModule,
+        NightPlanComponent
+       ],
       providers: [
         { provide: NightPlanService, useValue: nightPlanService },
         CoordsFormatterService

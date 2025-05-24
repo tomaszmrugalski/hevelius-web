@@ -29,10 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
         MatToolbarModule,
         MatCardModule,
         MatIconModule
-    ],
-    providers: [
-        LoginService
-    ],
+    ]
 })
 export class LoginComponent implements OnInit {
 
